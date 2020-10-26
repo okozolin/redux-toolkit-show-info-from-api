@@ -5,7 +5,7 @@ import Header from "./Header";
 import Search from "./Search";
 import Artist from "./Artist";
 import { url } from "../utils";
-import { artistSelector, fetchArtist } from "../redux/artistSlice";
+import { artistSelector, fetchArtist, resetArtist } from "../redux/artistSlice";
 import { eventsSelector, fetchEvents } from "../redux/eventsSlice";
 
 export default function Home() {
@@ -24,10 +24,11 @@ export default function Home() {
       dispatch(fetchEvents(eventsPath));
       console.log("after second dispatch");
     }
+    // return () => {
+    //   dispatch(resetArtist(null));
+    //   dispatch(resetEvents(null));
+    // };
   }, [dispatch, artistPath, eventsPath, query]);
-
-  console.log("query", query);
-  console.log("events2 in Home: ", events);
 
   return loading ? (
     <CircularProgress />

@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Home from "./components/Home";
 import Event from "./components/Event";
-import "./App.css";
 
 function App() {
   return (
@@ -17,10 +16,6 @@ function App() {
         </Switch>
       </HashRouter>
     </Provider>
-
-    // <div className="App">
-    //   <Home />
-    // </div>
   );
 }
 

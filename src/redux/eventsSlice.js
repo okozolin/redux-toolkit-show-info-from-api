@@ -42,6 +42,9 @@ export function fetchEvents(url) {
 
     try {
       const data = await Api.getData(url);
+      if (data) {
+        data.reverse();
+      }
       dispatch(getEventsSuccess(data));
     } catch (error) {
       dispatch(getEventsFailure());

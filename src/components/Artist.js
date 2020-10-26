@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Avatar, Paper } from "@material-ui/core";
+import { Grid, Typography, Avatar, Paper, Box } from "@material-ui/core";
 import { capitalize } from "../utils";
 import { FONT_SIZE_15 } from "../constants";
 import EventItem from "./EventItem";
@@ -30,7 +30,13 @@ export default function Artist() {
           </Grid>
         </Grid>
       </Paper>
-      {events && events.map((item) => <EventItem key={item.id} event={item} />)}
+      <Box m={3}>
+        {events.length > 0 ? (
+          events.map((item) => <EventItem key={item.id} event={item} />)
+        ) : (
+          <Typography>No events found</Typography>
+        )}
+      </Box>
     </>
   );
 }
