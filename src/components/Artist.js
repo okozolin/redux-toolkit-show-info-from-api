@@ -3,8 +3,14 @@ import { Grid, Typography, Avatar, Paper } from "@material-ui/core";
 import { capitalize } from "../utils";
 import { FONT_SIZE_15 } from "../constants";
 import EventItem from "./EventItem";
+import { useSelector } from "react-redux";
+import { artistSelector } from "../redux/artistSlice";
+import { eventsSelector } from "../redux/eventsSlice";
 
-export default function Artist({ data, events }) {
+export default function Artist() {
+  const { artist: data } = useSelector(artistSelector);
+  const { events } = useSelector(eventsSelector);
+
   return (
     <>
       <Paper elevation={1}>

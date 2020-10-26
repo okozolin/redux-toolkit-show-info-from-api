@@ -1,19 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Api from "../services/services";
 
-// const slice = createSlice({
-//   name: "artist",
-//   initialState: [],
-//   reducers: {
-//     getArtist: (state, action) => {
-//       state.artist = action.payloadn;
-//     },
-//   },
-// });
-
-// export const { getArtist } = slice.actions;
-// export default slice.reducer;
-
 export const initialState = {
   loading: false,
   hasErrors: false,

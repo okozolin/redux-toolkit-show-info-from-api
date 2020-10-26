@@ -6,26 +6,29 @@ import Search from "./Search";
 import Artist from "./Artist";
 import { url } from "../utils";
 import { artistSelector, fetchArtist } from "../redux/artistSlice";
+import { eventsSelector, fetchEvents } from "../redux/eventsSlice";
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const [eventsData, setEventsData] = useState([]);
 
   const dispatch = useDispatch();
   const { artist, loading, hasErrors } = useSelector(artistSelector);
-  console.log("artist: ", artist);
+  const { events } = useSelector(eventsSelector);
 
-  const path = url(query);
+  const artistPath = url(query);
   const eventsPath = url(`${artist.name}/events`) + "&date=all";
 
   useEffect(() => {
     if (query) {
-      dispatch(fetchArtist(path));
+      dispatch(fetchArtist(artistPath));
+      dispatch(fetchEvents(eventsPath));
+      console.log("after second dispatch");
     }
-  }, [dispatch, path, query]);
+  }, [dispatch, artistPath, eventsPath, query]);
 
   console.log("query", query);
-  console.log("artist from home component", artist);
+  console.log("events2 in Home: ", events);
+
   return loading ? (
     <CircularProgress />
   ) : (
@@ -41,7 +44,7 @@ export default function Home() {
       </Grid>
       <Grid container spacing={3}>
         <Grid item sm>
-          <Artist data={artist} events={eventsData} />
+          <Artist />
         </Grid>
       </Grid>
     </>
