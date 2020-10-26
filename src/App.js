@@ -10,9 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
-          {/* <Route path={`${artist}/events/:id`} component={Event} /> */}
-          {/* <Route path={`/events/:id`} component={Event} /> */}
-          <Route path="/events/:id" component={Event} />
+          <Route path="/:artist/events/:id" component={Event} />
         </Switch>
       </Router>
     </Provider>

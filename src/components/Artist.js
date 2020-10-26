@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-import { Link as RouterLink, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { capitalize } from "../utils";
 import { FONT_SIZE_15 } from "../constants";
@@ -17,19 +17,17 @@ import EventItem from "./EventItem";
 import { useSelector } from "react-redux";
 import { artistSelector } from "../redux/artistSlice";
 import { eventsSelector } from "../redux/eventsSlice";
-import { NavLink } from "react-router-dom";
 
 export default function Artist() {
-  const { artist: data } = useSelector(artistSelector);
+  const { artist } = useSelector(artistSelector);
   const { events } = useSelector(eventsSelector);
 
   let EventLink;
-  const list = (
+  const eventsList = (
     <List>
       {events.map((item) => {
         EventLink = (props) => (
-          <NavLink to="/events/:id" {...props} />
-          //   <Link href={url} as={link} color="inherit" {...props} />
+          <NavLink to={`${artist.name}/events/${item.id}`} {...props} />
         );
         return (
           <ListItem
@@ -54,20 +52,20 @@ export default function Artist() {
           <Grid item>
             <Avatar
               alt="Artist/Band avatar"
-              src={data.thumb_url}
+              src={artist.thumb_url}
               size={FONT_SIZE_15} // 74px
             >
               {/* if picture file does not exist use alternative avatar with name initials */}
-              {/* {getNameInitials(data.PersonName)} */}
+              {/* {getNameInitials(artist.PersonName)} */}
             </Avatar>
           </Grid>
           <Grid item>
-            <Typography>{capitalize(data.name)}</Typography>
+            <Typography>{capitalize(artist.name)}</Typography>
           </Grid>
         </Grid>
       </Paper>
       {events.length > 0 ? (
-        <List m={3}>{list}</List>
+        <List m={3}>{eventsList}</List>
       ) : (
         <Box m={3}>
           <Typography>No events found</Typography>
