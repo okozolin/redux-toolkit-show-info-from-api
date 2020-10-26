@@ -1,11 +1,26 @@
+import { HashRouter, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import Home from "./components/Home";
+import Event from "./components/Event";
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Provider store={store}>
+      <HashRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          {/* <Route path={`${artist}/events/:id`} component={Event} /> */}
+          {/* <Route path={`/events/:id`} component={Event} /> */}
+          <Route path="/events/:id" component={Event} />
+        </Switch>
+      </HashRouter>
+    </Provider>
+
+    // <div className="App">
+    //   <Home />
+    // </div>
   );
 }
 
