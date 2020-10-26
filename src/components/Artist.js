@@ -1,15 +1,51 @@
 import React from "react";
-import { Grid, Typography, Avatar, Paper, Box } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Avatar,
+  Paper,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+import { Link as RouterLink, Route } from "react-router-dom";
+
 import { capitalize } from "../utils";
 import { FONT_SIZE_15 } from "../constants";
 import EventItem from "./EventItem";
 import { useSelector } from "react-redux";
 import { artistSelector } from "../redux/artistSlice";
 import { eventsSelector } from "../redux/eventsSlice";
+import { NavLink } from "react-router-dom";
 
 export default function Artist() {
   const { artist: data } = useSelector(artistSelector);
   const { events } = useSelector(eventsSelector);
+
+  let EventLink;
+  const list = (
+    <List>
+      {events.map((item) => {
+        EventLink = (props) => (
+          <NavLink to="/events/:id" {...props} />
+          //   <Link href={url} as={link} color="inherit" {...props} />
+        );
+        return (
+          <ListItem
+            button
+            key={item.id}
+            component={EventLink}
+            // classes={{ root: classes.item }}
+          >
+            <ListItemText>
+              <EventItem event={item} />
+            </ListItemText>
+          </ListItem>
+        );
+      })}
+    </List>
+  );
 
   return (
     <>
@@ -30,13 +66,13 @@ export default function Artist() {
           </Grid>
         </Grid>
       </Paper>
-      <Box m={3}>
-        {events.length > 0 ? (
-          events.map((item) => <EventItem key={item.id} event={item} />)
-        ) : (
+      {events.length > 0 ? (
+        <List m={3}>{list}</List>
+      ) : (
+        <Box m={3}>
           <Typography>No events found</Typography>
-        )}
-      </Box>
+        </Box>
+      )}
     </>
   );
 }
