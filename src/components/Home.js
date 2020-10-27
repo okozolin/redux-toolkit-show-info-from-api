@@ -4,6 +4,7 @@ import { Grid, CircularProgress } from "@material-ui/core";
 import Header from "./Header";
 import Search from "./Search";
 import Artist from "./Artist";
+import Favorites from "./Favorites";
 import { url } from "../utils";
 import { artistSelector, fetchArtist } from "../redux/artistSlice";
 import { fetchEvents } from "../redux/eventsSlice";
@@ -32,16 +33,16 @@ export default function Home() {
     <>
       <Header />
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Search setSearchText={setQuery} />
+        <Grid item xs={6} container spacing={3}>
+          <Grid item xs={12}>
+            <Search setSearchText={setQuery} />
+          </Grid>
+          <Grid item xs={12}>
+            {artist ? <Artist /> : ""}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          Favorites
-        </Grid>
-      </Grid>
-      <Grid container spacing={3}>
-        <Grid item sm>
-          {artist ? <Artist /> : ""}
+        <Grid item xs={6}>
+          <Favorites />
         </Grid>
       </Grid>
     </>

@@ -21,7 +21,6 @@ export default function Event() {
 
   const ev = events.filter((ev) => ev.id === id);
   const event = ev[0];
-  console.log("event", event);
 
   const isFav = favorites && favorites.some((fav) => fav.id === id);
 

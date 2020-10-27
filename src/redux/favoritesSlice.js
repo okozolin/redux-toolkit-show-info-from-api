@@ -49,7 +49,6 @@ export const addToFavorites = (event) => async (dispatch, getState) => {
       payload: event,
     })
   );
-  console.log("getState().favorites", getState().favorites);
   localStorage.setItem("favorites", JSON.stringify(getState().favorites));
 };
 
@@ -60,7 +59,6 @@ export const removeFromFavorites = (event) => (dispatch, getState) => {
       payload: event,
     })
   );
-  console.log("getState().favorites", getState().favorites);
 
   localStorage.setItem("favorites", JSON.stringify(getState().favorites));
 };
