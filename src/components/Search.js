@@ -13,6 +13,8 @@ export default function Search({ setSearchText }) {
   return (
     <div>
       <TextField
+        required
+        fullWidth
         label="Artist"
         variant="outlined"
         placeholder="Enter Artist name. e.g: Bionce"

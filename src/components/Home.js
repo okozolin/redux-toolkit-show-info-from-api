@@ -37,9 +37,13 @@ export default function Home() {
           <Grid item xs={12}>
             <Search setSearchText={setQuery} />
           </Grid>
-          <Grid item xs={12}>
-            {artist ? <Artist /> : ""}
-          </Grid>
+          {artist &&
+            Object.keys(artist).length !== 0 &&
+            artist.constructor === Object && (
+              <Grid item xs={12}>
+                <Artist />
+              </Grid>
+            )}
         </Grid>
         <Grid item xs={6}>
           <Favorites />

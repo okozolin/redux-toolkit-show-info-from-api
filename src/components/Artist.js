@@ -3,7 +3,6 @@ import {
   Grid,
   Typography,
   Avatar,
-  Paper,
   Box,
   List,
   ListItem,
@@ -47,7 +46,7 @@ export default function Artist() {
 
   return (
     <>
-      <Paper elevation={1}>
+      <Box bgcolor="#ec15c09c">
         <Grid container justify="flex-start" alignItems="center" spacing={3}>
           <Grid item>
             <Avatar
@@ -63,7 +62,7 @@ export default function Artist() {
             <Typography>{capitalize(artist.name)}</Typography>
           </Grid>
         </Grid>
-      </Paper>
+      </Box>
       {events.length > 0 ? (
         <List m={3}>{eventsList}</List>
       ) : (
