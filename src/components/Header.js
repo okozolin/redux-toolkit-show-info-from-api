@@ -1,10 +1,12 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 
 export default function Header() {
   return (
-    <div>
-      <Typography variant="h3">Who's in town</Typography>
-    </div>
+    <Box m={3}>
+      <Typography variant="h3" color="primary">
+        Who's in town
+      </Typography>
+    </Box>
   );
 }

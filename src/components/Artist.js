@@ -12,7 +12,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 import { capitalize } from "../utils";
-import { FONT_SIZE_15 } from "../constants";
+import { FONT_SIZE_15 } from "../constants/constants";
 import EventItem from "./EventItem";
 import { useSelector } from "react-redux";
 import { artistSelector } from "../redux/artistSlice";

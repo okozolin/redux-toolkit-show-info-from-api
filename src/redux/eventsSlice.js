@@ -41,9 +41,13 @@ export function fetchEvents(url) {
     dispatch(getEvents());
 
     try {
+      let hashmap = [];
       const data = await Api.getData(url);
       if (data) {
         data.reverse();
+        // hashmap = data.reduce((acc, cur) => {
+        //   return { ...acc, [cur.id]: cur };
+        // }, []);
       }
       dispatch(getEventsSuccess(data));
     } catch (error) {

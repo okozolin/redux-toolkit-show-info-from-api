@@ -23,9 +23,6 @@ const artistSlice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
-    resetArtist: (state, { payload }) => {
-      state.artist = payload;
-    },
   },
 });
 
@@ -33,7 +30,7 @@ export const {
   getArtist,
   getArtistSuccess,
   getArtistFailure,
-  resetArtist,
+  // resetArtist,
 } = artistSlice.actions;
 
 export const artistSelector = (state) => state.artist;

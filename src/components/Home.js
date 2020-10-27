@@ -5,15 +5,14 @@ import Header from "./Header";
 import Search from "./Search";
 import Artist from "./Artist";
 import { url } from "../utils";
-import { artistSelector, fetchArtist, resetArtist } from "../redux/artistSlice";
-import { eventsSelector, fetchEvents } from "../redux/eventsSlice";
+import { artistSelector, fetchArtist } from "../redux/artistSlice";
+import { fetchEvents } from "../redux/eventsSlice";
 
 export default function Home() {
   const [query, setQuery] = useState("");
 
   const dispatch = useDispatch();
   const { artist, loading, hasErrors } = useSelector(artistSelector);
-  const { events } = useSelector(eventsSelector);
 
   const artistPath = url(query);
   const eventsPath = url(`${artist.name}/events`) + "&date=all";
@@ -22,16 +21,13 @@ export default function Home() {
     if (query) {
       dispatch(fetchArtist(artistPath));
       dispatch(fetchEvents(eventsPath));
-      console.log("after second dispatch");
     }
-    // return () => {
-    //   dispatch(resetArtist(null));
-    //   dispatch(resetEvents(null));
-    // };
   }, [dispatch, artistPath, eventsPath, query]);
 
   return loading ? (
     <CircularProgress />
+  ) : hasErrors ? (
+    <div>Error: Failed to load</div>
   ) : (
     <>
       <Header />
@@ -45,7 +41,7 @@ export default function Home() {
       </Grid>
       <Grid container spacing={3}>
         <Grid item sm>
-          <Artist />
+          {artist ? <Artist /> : ""}
         </Grid>
       </Grid>
     </>
