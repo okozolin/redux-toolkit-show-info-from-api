@@ -26,7 +26,6 @@ export default function Event() {
   const isFav = favorites && favorites.some((fav) => fav.id === id);
 
   const toggleClick = (e) => {
-    debugger;
     isFav
       ? dispatch(removeFromFavorites(event))
       : dispatch(addToFavorites(event));

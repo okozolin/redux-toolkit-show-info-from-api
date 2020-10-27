@@ -3,7 +3,6 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
 } from "../constants/favoritesConstants";
-debugger;
 export const initialState = {
   favorites: [],
 };
@@ -55,7 +54,6 @@ export const addToFavorites = (event) => async (dispatch, getState) => {
 };
 
 export const removeFromFavorites = (event) => (dispatch, getState) => {
-  debugger;
   dispatch(
     toggleFavorites({
       type: REMOVE_FROM_FAVORITES,
