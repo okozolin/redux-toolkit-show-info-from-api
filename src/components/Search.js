@@ -6,8 +6,8 @@ export default function Search({ setSearchText }) {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      setSearchText(value);
       e.preventDefault();
+      setSearchText(value);
     }
   };
   return (

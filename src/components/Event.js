@@ -2,7 +2,6 @@ import React from "react";
 import { Typography, Paper, Box } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { eventsSelector } from "../redux/eventsSlice";
 import { IconButton } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -11,10 +10,11 @@ import {
   removeFromFavorites,
   favoritesSelector,
 } from "../redux/favoritesSlice";
+import { selectAllEvents as events } from "../redux/eventsSlice";
 
 export default function Event() {
   const { id, artist } = useParams();
-  const { events } = useSelector(eventsSelector);
+  // const { events } = useSelector(eventsSelector);
   const { favorites } = useSelector(favoritesSelector);
 
   const dispatch = useDispatch();

@@ -1,57 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createEntityAdapter,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import Api from "../services/services";
 
-export const initialState = {
-  loading: false,
-  hasErrors: false,
-  events: [],
-};
+export const fetchEvents = createAsyncThunk(
+  "events/fetchEvents",
+  async (eventsPath, thunkAPI) => {
+    const response = await Api.getData(eventsPath);
+    console.log("events response in EventsSlice", response);
+    return response;
+  }
+);
+
+const eventsAdapter = createEntityAdapter({
+  sortComparer: (a, b) => {
+    return b.datetime.localeCompare(a.datetime);
+  },
+});
+const initialState = eventsAdapter.getInitialState({
+  status: "idle",
+  errors: null,
+});
 
 const eventsSlice = createSlice({
   name: "events",
   initialState,
-  reducers: {
-    getEvents: (state) => {
-      state.loading = true;
+  reducers: {},
+  extraReducers: {
+    [fetchEvents.pending]: (state, action) => {
+      state.status = "loading";
     },
-    getEventsSuccess: (state, { payload }) => {
-      state.events = payload;
-      state.loading = false;
-      state.hasErrors = false;
+    [fetchEvents.fulfilled]: (state, { payload }) => {
+      console.log("fetchEvents.fulfilled payload", payload);
+      state.status = "succeeded";
+      eventsAdapter.setAll(state, payload);
     },
-    getEventsFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
+    [fetchEvents.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.payload;
     },
   },
 });
 
+// Can create a set of memoized selectors based on the location of this entity state
 export const {
-  getEvents,
-  getEventsSuccess,
-  getEventsFailure,
-} = eventsSlice.actions;
-
-export const eventsSelector = (state) => state.events;
+  selectAll: selectAllEvents,
+  selectById: selectEventById,
+  selectIds: selectEventsIds,
+} = eventsAdapter.getSelectors((state) => state.events);
 
 export default eventsSlice.reducer;
-
-export function fetchEvents(url) {
-  return async (dispatch) => {
-    dispatch(getEvents());
-
-    try {
-      let hashmap = [];
-      const data = await Api.getData(url);
-      if (data) {
-        data.reverse();
-        // hashmap = data.reduce((acc, cur) => {
-        //   return { ...acc, [cur.id]: cur };
-        // }, []);
-      }
-      dispatch(getEventsSuccess(data));
-    } catch (error) {
-      dispatch(getEventsFailure());
-    }
-  };
-}

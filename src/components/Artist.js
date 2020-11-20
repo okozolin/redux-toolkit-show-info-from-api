@@ -15,12 +15,13 @@ import { FONT_SIZE_15 } from "../constants/constants";
 import EventItem from "./EventItem";
 import { useSelector } from "react-redux";
 import { artistSelector } from "../redux/artistSlice";
-import { eventsSelector } from "../redux/eventsSlice";
+import { selectAllEvents } from "../redux/eventsSlice";
 
 export default function Artist() {
   const { artist } = useSelector(artistSelector);
-  const { events } = useSelector(eventsSelector);
+  const events = useSelector((state) => selectAllEvents(state));
 
+  console.log("events in Artist --->", events);
   let EventLink;
   const eventsList = (
     <List>

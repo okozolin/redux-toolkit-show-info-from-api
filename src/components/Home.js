@@ -7,27 +7,26 @@ import Artist from "./Artist";
 import Favorites from "./Favorites";
 import { url } from "../utils";
 import { artistSelector, fetchArtist } from "../redux/artistSlice";
-import { fetchEvents } from "../redux/eventsSlice";
 
 export default function Home() {
   const [query, setQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { artist, loading, hasErrors } = useSelector(artistSelector);
+  const { artist, status, error } = useSelector(artistSelector);
 
   const artistPath = url(query);
-  const eventsPath = url(`${artist.name}/events`) + "&date=all";
+  const eventsPath = url(`${query}/events`) + "&date=all";
 
   useEffect(() => {
     if (query) {
-      dispatch(fetchArtist(artistPath));
-      dispatch(fetchEvents(eventsPath));
+      dispatch(fetchArtist({ artistPath, eventsPath }));
     }
-  }, [dispatch, artistPath, eventsPath, query]);
+  }, [artistPath, query, dispatch, eventsPath]);
 
-  return loading ? (
+  console.log("status & error, artist in Home", status, error, artist);
+  return status === "loading" ? (
     <CircularProgress />
-  ) : hasErrors ? (
+  ) : error ? (
     <div>Error: Failed to load</div>
   ) : (
     <>
