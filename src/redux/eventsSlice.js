@@ -9,7 +9,7 @@ export const fetchEvents = createAsyncThunk(
   "events/fetchEvents",
   async (eventsPath, thunkAPI) => {
     const response = await Api.getData(eventsPath);
-    console.log("events response in EventsSlice", response);
+    // console.log("events response in EventsSlice", response);
     return response;
   }
 );
@@ -33,7 +33,7 @@ const eventsSlice = createSlice({
       state.status = "loading";
     },
     [fetchEvents.fulfilled]: (state, { payload }) => {
-      console.log("fetchEvents.fulfilled payload", payload);
+      // console.log("fetchEvents.fulfilled payload", payload);
       state.status = "succeeded";
       eventsAdapter.setAll(state, payload);
     },

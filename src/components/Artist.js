@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Grid,
   Typography,
@@ -17,11 +17,12 @@ import { useSelector } from "react-redux";
 import { artistSelector } from "../redux/artistSlice";
 import { selectAllEvents } from "../redux/eventsSlice";
 
-export default function Artist() {
+export default memo(function Artist() {
+  console.count("Artist");
   const { artist } = useSelector(artistSelector);
   const events = useSelector((state) => selectAllEvents(state));
 
-  console.log("events in Artist --->", events);
+  // console.log("events in Artist --->", events);
   let EventLink;
   const eventsList = (
     <List>
@@ -73,4 +74,4 @@ export default function Artist() {
       )}
     </>
   );
-}
+});
