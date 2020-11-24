@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 import Header from "./Header";
@@ -9,11 +9,12 @@ import { url } from "../utils";
 import { artistSelector, fetchArtist } from "../redux/artistSlice";
 
 export default function Home() {
+  console.count("Home");
   const [query, setQuery] = useState("");
 
   const dispatch = useDispatch();
   const { artist, status, error } = useSelector(artistSelector);
-
+  console.log("status inside Home--->", status);
   const artistPath = url(query);
   const eventsPath = url(`${query}/events`) + "&date=all";
 
@@ -23,26 +24,35 @@ export default function Home() {
     }
   }, [artistPath, query, dispatch, eventsPath]);
 
-  console.log("status & error, artist in Home", status, error, artist);
-  return status === "loading" ? (
-    <CircularProgress />
-  ) : error ? (
-    <div>Error: Failed to load</div>
-  ) : (
+  const handleChange = useCallback(
+    (newValue) => {
+      setQuery(newValue);
+    },
+    [setQuery]
+  );
+
+  return (
     <>
       <Header />
       <Grid container spacing={3}>
         <Grid item xs={6} container spacing={3}>
           <Grid item xs={12}>
-            <Search setSearchText={setQuery} />
+            <Search setSearchText={handleChange} />
           </Grid>
-          {artist &&
+
+          {status === "loading" ? (
+            <CircularProgress />
+          ) : error ? (
+            <div>Error: Failed to load</div>
+          ) : (
+            artist &&
             Object.keys(artist).length !== 0 &&
             artist.constructor === Object && (
               <Grid item xs={12}>
                 <Artist />
               </Grid>
-            )}
+            )
+          )}
         </Grid>
         <Grid item xs={6}>
           <Favorites />

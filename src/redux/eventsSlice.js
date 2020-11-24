@@ -9,7 +9,6 @@ export const fetchEvents = createAsyncThunk(
   "events/fetchEvents",
   async (eventsPath, thunkAPI) => {
     const response = await Api.getData(eventsPath);
-    console.log("events response in EventsSlice", response);
     return response;
   }
 );
@@ -30,16 +29,18 @@ const eventsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchEvents.pending]: (state, action) => {
+      console.log("fetchEvents.pending------->");
       state.status = "loading";
     },
     [fetchEvents.fulfilled]: (state, { payload }) => {
-      console.log("fetchEvents.fulfilled payload", payload);
+      console.log("fetchEvents.fulfilled------->");
       state.status = "succeeded";
       eventsAdapter.setAll(state, payload);
     },
     [fetchEvents.rejected]: (state, action) => {
+      console.log("fetchEvents.rejected------->", action);
       state.status = "failed";
-      state.error = action.payload;
+      state.error = action.error;
     },
   },
 });

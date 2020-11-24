@@ -1,64 +1,66 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  ADD_TO_FAVORITES,
-  REMOVE_FROM_FAVORITES,
-} from "../constants/favoritesConstants";
-export const initialState = {
-  favorites: [],
-};
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
+const favoritesAdapter = createEntityAdapter({
+  sortComparer: (a, b) => {
+    return b.datetime.localeCompare(a.datetime);
+  },
+});
+
+const initialState = favoritesAdapter.getInitialState();
 
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    setFavorites: (state, { payload }) => {
-      state.favorites = payload;
+    addToFavorites(state, action) {
+      console.log("action in favoritesSlice--->", action, state);
+      favoritesAdapter.addOne(state, action.payload);
+      localStorage.setItem("favorites", JSON.stringify(state.entities));
     },
-
-    toggleFavorites: (state = { favorites: [] }, action) => {
-      switch (action.payload.type) {
-        case ADD_TO_FAVORITES:
-          return {
-            ...state,
-            favorites: [...state.favorites, action.payload.payload],
-          };
-        case REMOVE_FROM_FAVORITES:
-          return {
-            ...state,
-            favorites: state.favorites.filter(
-              (x) => x.id !== action.payload.payload.id
-            ),
-          };
-        default:
-          return state;
-      }
+    removeFromFavorites(state, action) {
+      favoritesAdapter.removeOne(state, action.payload);
+      localStorage.setItem("favorites", JSON.stringify(state.entities));
     },
+    updateFavorites: favoritesAdapter.upsertMany,
   },
 });
 
-export const { setFavorites, toggleFavorites } = favoritesSlice.actions;
-
-export const favoritesSelector = (state) => state.favorites;
+export const {
+  addToFavorites,
+  removeFromFavorites,
+  updateFavorites,
+} = favoritesSlice.actions;
+export const {
+  selectAll: selectAllFavorites,
+  selectById: selectFavoriteById,
+  selectIds: selectFavoritesIds,
+} = favoritesAdapter.getSelectors((state) => state.favorites);
 
 export default favoritesSlice.reducer;
 
-export const addToFavorites = (event) => async (dispatch, getState) => {
-  dispatch(
-    toggleFavorites({
-      type: ADD_TO_FAVORITES,
-      payload: event,
-    })
-  );
-  localStorage.setItem("favorites", JSON.stringify(getState().favorites));
-};
+// export const { setFavorites, toggleFavorites } = favoritesSlice.actions;
 
-export const removeFromFavorites = (event) => (dispatch, getState) => {
-  dispatch(
-    toggleFavorites({
-      type: REMOVE_FROM_FAVORITES,
-      payload: event,
-    })
-  );
+// export const favoritesSelector = (state) => state.favorites;
 
-  localStorage.setItem("favorites", JSON.stringify(getState().favorites));
-};
+// export default favoritesSlice.reducer;
+
+// export const addToFavorites = (event) => async (dispatch, getState) => {
+//   dispatch(
+//     toggleFavorites({
+//       type: ADD_TO_FAVORITES,
+//       payload: event,
+//     })
+//   );
+//   localStorage.setItem("favorites", JSON.stringify(getState().favorites));
+// };
+
+// export const removeFromFavorites = (event) => (dispatch, getState) => {
+//   dispatch(
+//     toggleFavorites({
+//       type: REMOVE_FROM_FAVORITES,
+//       payload: event,
+//     })
+//   );
+
+//   localStorage.setItem("favorites", JSON.stringify(getState().favorites));
+// };

@@ -10,18 +10,21 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromFavorites,
-  favoritesSelector,
+  updateFavorites,
+  selectAllFavorites,
 } from "../redux/favoritesSlice";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 const Favorites = () => {
   const dispatch = useDispatch();
 
-  let { favorites } = useSelector(favoritesSelector);
-  const localStorageFavorites = localStorage.getItem("favorites");
+  let favorites = useSelector(selectAllFavorites);
 
+  const localStorageFavorites = localStorage.getItem("favorites");
+  console.log("localStorageFavorites in Favorites-->", localStorageFavorites);
   if (favorites.length === 0 && localStorageFavorites) {
-    favorites = JSON.parse(localStorageFavorites).favorites;
+    favorites = JSON.parse(localStorageFavorites);
+    dispatch(updateFavorites(favorites));
   }
   return (
     <Box textAlign="center" bgcolor="#b7fcde">
@@ -34,7 +37,7 @@ const Favorites = () => {
                 action={
                   <IconButton
                     aria-label="settings"
-                    onClick={() => dispatch(removeFromFavorites(event))}
+                    onClick={() => dispatch(removeFromFavorites(event.id))}
                   >
                     <CancelIcon />
                   </IconButton>

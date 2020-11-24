@@ -27,20 +27,18 @@ const artistSlice = createSlice({
   // }
   extraReducers: {
     [fetchArtist.pending]: (state, action) => {
-      console.log("fetchArtist.pending, state, action", state, action);
+      console.log("fetchArtist.pending------->");
       state.status = "loading";
     },
     [fetchArtist.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      console.log("fetchArtist.fulfilled, action", action);
-      // Add any fetched posts to the array
-      // postsAdapter.upsertMany(state, action.payload)
+      console.log("fetchArtist.fulfilled------->");
       state.artist = action.payload;
     },
     [fetchArtist.rejected]: (state, action) => {
-      console.log("fetchArtist.rejected, action", action);
+      console.log("fetchArtist.rejected------->");
       state.status = "failed";
-      state.error = action.payload;
+      state.error = action.error;
     },
   },
 });
