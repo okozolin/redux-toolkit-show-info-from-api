@@ -10,7 +10,7 @@ import {
   selectFavoriteById,
 } from "../redux/favoritesSlice";
 import { selectEventById } from "../redux/eventsSlice";
-import Moment, { calendarStrings } from "../utils/formatDateTime";
+import { Moment, calendarStrings } from "../utils";
 
 export default function Event() {
   const { id, artist } = useParams();

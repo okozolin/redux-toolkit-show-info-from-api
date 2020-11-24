@@ -45,7 +45,6 @@ const eventsSlice = createSlice({
   },
 });
 
-// Can create a set of memoized selectors based on the location of this entity state
 export const {
   selectAll: selectAllEvents,
   selectById: selectEventById,
