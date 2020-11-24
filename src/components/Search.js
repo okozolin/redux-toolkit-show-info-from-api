@@ -17,7 +17,7 @@ export default function Search({ setSearchText }) {
         fullWidth
         label="Artist"
         variant="outlined"
-        placeholder="Enter Artist name. e.g: Bionce"
+        placeholder="Enter Artist name. e.g: Beyonce"
         onChange={(e) => setValue(e.target.value)}
         onKeyPress={handleSearch}
       />
