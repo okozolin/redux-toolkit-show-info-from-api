@@ -1,19 +1,13 @@
 import React from "react";
-import Moment from "react-moment";
 import { Typography, Paper, Box } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { selectEventById } from "../redux/eventsSlice";
+import Moment, { calendarStrings } from "../utils/formatDateTime";
 
-export default function EventItem({ event }) {
+export default function EventItem({ eventId }) {
+  // console.count("EventItem");
+  const event = useSelector((state) => selectEventById(state, eventId));
   const { offers } = event;
-
-  Moment.globalFormat = "D MMM YYYY";
-  const calendarStrings = {
-    lastDay: "[Yesterday at] LT",
-    sameDay: "[Today at] LT",
-    nextDay: "[Tomorrow at] LT",
-    lastWeek: "[last] dddd [at] LT",
-    nextWeek: "dddd [at] LT",
-    sameElse: "L",
-  };
 
   return (
     <>

@@ -1,32 +1,26 @@
 import React from "react";
-import { Typography, Paper, Box } from "@material-ui/core";
+import { Typography, Paper, Box, IconButton } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { IconButton } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import {
   addToFavorites,
   removeFromFavorites,
-  favoritesSelector,
+  selectFavoriteById,
 } from "../redux/favoritesSlice";
-import { selectAllEvents as events } from "../redux/eventsSlice";
+import { selectEventById } from "../redux/eventsSlice";
+import Moment, { calendarStrings } from "../utils/formatDateTime";
 
 export default function Event() {
   const { id, artist } = useParams();
-  // const { events } = useSelector(eventsSelector);
-  const { favorites } = useSelector(favoritesSelector);
+  const event = useSelector((state) => selectEventById(state, id));
+  const favorite = useSelector((state) => selectFavoriteById(state, id));
 
   const dispatch = useDispatch();
-
-  const ev = events.filter((ev) => ev.id === id);
-  const event = ev[0];
-
-  const isFav = favorites && favorites.some((fav) => fav.id === id);
-
   const toggleClick = (e) => {
-    isFav
-      ? dispatch(removeFromFavorites(event))
+    favorite
+      ? dispatch(removeFromFavorites(id))
       : dispatch(addToFavorites(event));
   };
 
@@ -38,9 +32,9 @@ export default function Event() {
           aria-label="More Options"
           onClick={toggleClick}
         >
-          {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        {!isFav ? (
+        {!favorite ? (
           <Typography component="span" color="primary" variant="body1">
             Add to Favorites
           </Typography>
@@ -50,18 +44,26 @@ export default function Event() {
           </Typography>
         )}
       </Box>
+
       {event.title && <Typography variant="h2">{event.title}</Typography>}
 
       <Paper elevation={0} variant="outlined">
         <Box m={3}>
-          event meta data artist, id: {artist}, {id}
+          <Typography>Event meta data</Typography>
+          <Typography>Artist : {artist}</Typography>
+          <Typography>Event id: {id}</Typography>
         </Box>
       </Paper>
 
       <Paper variant="outlined">
         <Box m={3}>
-          venu information
-          <Typography>{event?.datetime}</Typography>
+          Venu information
+          <Typography>
+            Date : <Moment calendar={calendarStrings}>{event.datetime}</Moment>
+          </Typography>
+          <Typography>
+            Time: <Moment format="HH:mm">{event.datetime}</Moment>
+          </Typography>
         </Box>
       </Paper>
 
@@ -75,7 +77,7 @@ export default function Event() {
             {event?.venue.city}, {event?.venue.location}
           </Typography>
           <Typography>{event?.venue.name}</Typography>
-          venu map
+          Venu map
         </Box>
       </Paper>
     </div>
