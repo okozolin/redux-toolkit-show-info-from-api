@@ -26,8 +26,8 @@
 
 #### **Styling & UI**
 
-- Use styling method of your choosing
-- The app should be responsive !
+- Styling with Material-ui
+- The app is responsive !
 
 ## -
 
