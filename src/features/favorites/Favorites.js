@@ -12,7 +12,7 @@ import {
   removeFromFavorites,
   updateFavorites,
   selectAllFavorites,
-} from "../redux/favoritesSlice";
+} from "./favoritesSlice";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 const Favorites = () => {

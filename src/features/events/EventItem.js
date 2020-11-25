@@ -1,8 +1,8 @@
 import React from "react";
 import { Typography, Paper, Box } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { selectEventById } from "../redux/eventsSlice";
-import { Moment, calendarStrings } from "../utils";
+import { selectEventById } from "./eventsSlice";
+import { Moment, calendarStrings } from "../../utils";
 
 export default function EventItem({ eventId }) {
   // console.count("EventItem");

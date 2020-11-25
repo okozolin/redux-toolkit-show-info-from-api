@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
-import Header from "./Header";
 import Search from "./Search";
-import Artist from "./Artist";
-import Favorites from "./Favorites";
-import { url } from "../utils";
-import { artistSelector, fetchArtist } from "../redux/artistSlice";
+import Artist from "../artist/Artist";
+import Favorites from "../favorites/Favorites";
+import { url } from "../../utils";
+import { artistSelector, fetchArtist } from "../artist/artistSlice";
 
 export default function Home() {
   console.count("Home");
@@ -33,7 +32,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <Grid container spacing={3}>
         <Grid item xs={6} container spacing={3}>
           <Grid item xs={12}>

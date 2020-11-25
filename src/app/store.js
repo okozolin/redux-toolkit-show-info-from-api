@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import artistReducer from "./artistSlice";
-import eventsReducer from "./eventsSlice";
-import favoritesReducer from "./favoritesSlice";
+import artistReducer from "../features/artist/artistSlice";
+import eventsReducer from "../features/events/eventsSlice";
+import favoritesReducer from "../features/favorites/favoritesSlice";
 
 const store = configureStore({
   reducer: {

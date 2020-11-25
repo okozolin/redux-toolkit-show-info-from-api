@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Artists and Bands",
+  "name": "Dispaly Artists and Bands info",
   "icons": [
     {
       "src": "favicon.ico",

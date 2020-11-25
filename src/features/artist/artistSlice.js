@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Api from "../services/services";
-import { fetchEvents } from "./eventsSlice";
+import Api from "../../services/services";
+import { fetchEvents } from "../events/eventsSlice";
 
 export const fetchArtist = createAsyncThunk(
   "artist/fetchArtist",

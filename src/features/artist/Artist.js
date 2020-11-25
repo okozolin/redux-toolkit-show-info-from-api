@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid, Typography, Avatar, Box } from "@material-ui/core";
 
-import { capitalize } from "../utils";
-import { FONT_SIZE_15 } from "../constants/constants";
+import { capitalize } from "../../utils";
+import { FONT_SIZE_15 } from "../../constants/constants";
 import { useSelector } from "react-redux";
-import { artistSelector } from "../redux/artistSlice";
-import { selectEventsIds } from "../redux/eventsSlice";
-import EventsList from "./EventsList";
+import { artistSelector } from "./artistSlice";
+import { selectEventsIds } from "../events/eventsSlice";
+import EventsList from "../events/EventsList";
 
 export default function Artist() {
   console.count("Artist");

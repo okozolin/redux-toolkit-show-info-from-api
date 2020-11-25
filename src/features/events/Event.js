@@ -8,9 +8,9 @@ import {
   addToFavorites,
   removeFromFavorites,
   selectFavoriteById,
-} from "../redux/favoritesSlice";
-import { selectEventById } from "../redux/eventsSlice";
-import { Moment, calendarStrings } from "../utils";
+} from "../favorites/favoritesSlice";
+import { selectEventById } from "./eventsSlice";
+import { Moment, calendarStrings } from "../../utils";
 
 export default function Event() {
   const { id, artist } = useParams();

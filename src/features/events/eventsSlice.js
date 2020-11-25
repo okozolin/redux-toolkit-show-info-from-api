@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-import Api from "../services/services";
+import Api from "../../services/services";
 
 export const fetchEvents = createAsyncThunk(
   "events/fetchEvents",
