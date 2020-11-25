@@ -14,8 +14,8 @@ import { Moment, calendarStrings } from "../../utils";
 
 export default function Event() {
   const { id, artist } = useParams();
-  const event = useSelector((state) => selectEventById(state, id));
   const favorite = useSelector((state) => selectFavoriteById(state, id));
+  const event = useSelector((state) => selectEventById(state, id)) || favorite;
 
   const dispatch = useDispatch();
   const toggleClick = (e) => {
