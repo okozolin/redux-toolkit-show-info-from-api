@@ -39,7 +39,7 @@ export default function Event() {
             Add to Favorites
           </Typography>
         ) : (
-          <Typography component="span" color="secondery" variant="body1">
+          <Typography component="span" variant="body1">
             Remove from favorites
           </Typography>
         )}

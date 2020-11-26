@@ -14,24 +14,26 @@ import {
   updateFavorites,
   selectAllFavorites,
 } from "./favoritesSlice";
-import EventLink from "../events/EventLink";
+import NavLinkWrapper from "../../components/NavLinkWrapper";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { Moment, calendarStrings } from "../../utils";
+import { useLocation, useRouteMatch } from "react-router-dom";
 
 const Favorites = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
+
   const localStorageFavorites = localStorage.getItem("favorites");
-  console.log("localStorageFavorites in Favorites-->", localStorageFavorites);
 
   if (favorites.length === 0 && localStorageFavorites) {
     favorites = JSON.parse(localStorageFavorites);
     dispatch(updateFavorites(favorites));
   }
+
   return (
     <Box textAlign="center" bgcolor="#b7fcde">
-      <Typography variant="h4">Favorites</Typography>
       {favorites.length ? (
         <Card>
           {favorites.map((event, i) => (
@@ -53,8 +55,8 @@ const Favorites = () => {
               />
               <CardActionArea
                 key={event.id}
-                component={EventLink}
-                to={`${event.lineup[0]}/events/${event.id}`}
+                component={NavLinkWrapper}
+                to={`${match.url}${event.lineup[0]}/events/${event.id}`}
               >
                 <CardContent>
                   <Typography

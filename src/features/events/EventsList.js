@@ -1,7 +1,7 @@
 import React from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import EventItem from "./EventItem";
-import EventLink from "./EventLink";
+import NavLinkWrapper from "../../components/NavLinkWrapper";
 
 export default function EventsList({ eventsIds, artistName }) {
   console.count("EventsList");
@@ -12,7 +12,7 @@ export default function EventsList({ eventsIds, artistName }) {
         <ListItem
           button
           key={eventId}
-          component={EventLink}
+          component={NavLinkWrapper}
           to={`${artistName}/events/${eventId}`}
         >
           <ListItemText>

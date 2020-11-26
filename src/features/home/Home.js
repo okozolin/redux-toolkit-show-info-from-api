@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 import Search from "./Search";
 import Artist from "../artist/Artist";
-import Favorites from "../favorites/Favorites";
 import { url } from "../../utils";
 import { artistSelector, fetchArtist } from "../artist/artistSlice";
 
@@ -51,9 +50,6 @@ export default function Home() {
               </Grid>
             )
           )}
-        </Grid>
-        <Grid item xs={6}>
-          <Favorites />
         </Grid>
       </Grid>
     </>
