@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+
 import {
-  Typography,
   Box,
   Button,
   Drawer,
-  AppBar,
   Toolbar,
-  Tooltip,
   IconButton,
   Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
 } from "@material-ui/core";
 import StarsIcon from "@material-ui/icons/Stars";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import HomeIcon from "@material-ui/icons/Home";
-import NavLinkWrapper from "../components/NavLinkWrapper";
+import { NavLink } from "react-router-dom";
+
 import Favorites from "../features/favorites/Favorites";
+import FaceIcon from "@material-ui/icons/Face";
 
 const drawerWidth = 320;
 
@@ -60,27 +54,32 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
+    background:
+      "linear-gradient(to right,rgba(34,25,99,1) 0,rgba(206,40,93,1) 100%)",
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
+  // content: {
+  //   flexGrow: 1,
+  //   padding: theme.spacing(3),
+  //   transition: theme.transitions.create("margin", {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   marginRight: -drawerWidth,
+  // },
+  // contentShift: {
+  //   transition: theme.transitions.create("margin", {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   marginRight: 0,
+  // },
 
   tab: {
     padding: "17px 8px",
@@ -114,103 +113,52 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleDrawerToggle = () => {
+    setOpen(!open);
   };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const dispatch = useDispatch();
 
   return (
     <>
-      <Typography component="div">
-        <Box
-          my={2}
-          p={2}
-          fontFamily="Verdana, sans-serif"
-          borderRadius={30}
-          border="5px solid #ef3172"
-        >
-          <Box
-            m={4}
-            display="flex"
-            justifyContent="center"
-            fontSize={48}
-            fontWeight="bold"
+      <Box fontFamily="Verdana, sans-serif">
+        <Toolbar>
+          <Button
+            className={classes.tab}
+            startIcon={<HomeIcon />}
+            component={NavLink}
+            to="/"
           >
-            Artist and Bands events info
-          </Box>
-          <Toolbar>
-            <Button
-              className={classes.tab}
-              startIcon={<HomeIcon />}
-              component={NavLinkWrapper}
-              to="/"
-            >
-              Home
-            </Button>
-            <Button
-              className={classes.tab2}
-              onClick={handleDrawerOpen}
-              startIcon={<StarsIcon />}
-            >
-              Favorites
-            </Button>
-          </Toolbar>
+            Home
+          </Button>
+          <Button
+            className={classes.tab2}
+            onClick={handleDrawerToggle}
+            startIcon={<StarsIcon />}
+          >
+            Favorites
+          </Button>
+        </Toolbar>
+      </Box>
+
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <Box className={classes.drawerHeader}>
+          <IconButton color="secondary" onClick={handleDrawerToggle}>
+            <ChevronLeftIcon />
+          </IconButton>
+          Favorite events
         </Box>
-
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-            Favorite events
-          </div>
-          <Divider />
-
-          <Favorites />
-
-          {/* <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
-        </Drawer>
-      </Typography>
+        <Divider />
+        <Favorites />
+      </Drawer>
     </>
   );
 };

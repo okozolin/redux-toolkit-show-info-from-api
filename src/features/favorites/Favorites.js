@@ -14,7 +14,8 @@ import {
   updateFavorites,
   selectAllFavorites,
 } from "./favoritesSlice";
-import NavLinkWrapper from "../../components/NavLinkWrapper";
+import { NavLink } from "react-router-dom";
+
 import CancelIcon from "@material-ui/icons/Cancel";
 import { Moment, calendarStrings } from "../../utils";
 import { useLocation, useRouteMatch } from "react-router-dom";
@@ -55,7 +56,7 @@ const Favorites = () => {
               />
               <CardActionArea
                 key={event.id}
-                component={NavLinkWrapper}
+                component={NavLink}
                 to={`${match.url}${event.lineup[0]}/events/${event.id}`}
               >
                 <CardContent>
@@ -98,3 +99,27 @@ const Favorites = () => {
 };
 
 export default Favorites;
+
+{
+  /* <List>
+            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {["All mail", "Trash", "Spam"].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List> */
+}

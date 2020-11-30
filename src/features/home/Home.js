@@ -1,24 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { Grid, Box, Paper } from "@material-ui/core";
 import Search from "./Search";
-import Artist from "../artist/Artist";
 import { url } from "../../utils";
-import { artistSelector, fetchArtist } from "../artist/artistSlice";
+import { fetchArtist } from "../artist/artistSlice";
+import Navbar from "../../app/Navbar";
+import Header from "../../components/Header";
+import FaceIcon from "@material-ui/icons/Face";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   console.count("Home");
   const [query, setQuery] = useState("");
+  let history = useHistory();
 
   const dispatch = useDispatch();
-  const { artist, status, error } = useSelector(artistSelector);
-  console.log("status inside Home--->", status);
   const artistPath = url(query);
   const eventsPath = url(`${query}/events`) + "&date=all";
 
   useEffect(() => {
     if (query) {
       dispatch(fetchArtist({ artistPath, eventsPath }));
+      history.push("/");
     }
   }, [artistPath, query, dispatch, eventsPath]);
 
@@ -31,27 +34,31 @@ export default function Home() {
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={6} container spacing={3}>
+      <Paper elevation={1}>
+        <Grid container>
           <Grid item xs={12}>
-            <Search setSearchText={handleChange} />
+            <Header />
           </Grid>
-
-          {status === "loading" ? (
-            <CircularProgress />
-          ) : error ? (
-            <div>Error: Failed to load</div>
-          ) : (
-            artist &&
-            Object.keys(artist).length !== 0 &&
-            artist.constructor === Object && (
-              <Grid item xs={12}>
-                <Artist />
+          <Grid item xs={12} container>
+            <Box clone order={{ xs: 1, sm: 1 }}>
+              <Grid item xs={6} sm={3}>
+                <FaceIcon fontSize="large" />
               </Grid>
-            )
-          )}
+            </Box>
+
+            <Box clone order={{ xs: 2, sm: 3 }}>
+              <Grid item xs={6} sm={3}>
+                <Navbar />
+              </Grid>
+            </Box>
+            <Box clone order={{ xs: 3, sm: 2 }}>
+              <Grid item xs={12} sm={3}>
+                <Search setSearchText={handleChange} />
+              </Grid>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </>
   );
 }
