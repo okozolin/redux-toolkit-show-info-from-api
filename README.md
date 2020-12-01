@@ -60,16 +60,6 @@
 <hr>
 <br>
 
-## Implementation Highlights
-
-1. Material-ui components composition
-   read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
-   example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
-2. Responsive- UI
-2.1 Menu buttons in desktop turn to just icons in mobile
-<hr>
-<br>
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
