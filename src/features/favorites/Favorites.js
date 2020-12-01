@@ -18,11 +18,10 @@ import { NavLink } from "react-router-dom";
 
 import CancelIcon from "@material-ui/icons/Cancel";
 import { Moment, calendarStrings } from "../../utils";
-import { useLocation, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 const Favorites = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
 

@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
   xs: {
     [theme.breakpoints.down("sm")]: {
       fontSize: 20,
+      marginBottom: 24,
     },
   },
 }));
@@ -13,7 +14,7 @@ export default function Header() {
   const classes = useStyles();
   return (
     <Box
-      mb={4}
+      mb={6}
       py={3}
       display="flex"
       justifyContent="center"
@@ -22,7 +23,6 @@ export default function Header() {
       fontWeight="bold"
       color="white"
       bgcolor="rgba(51,153,204,1)"
-      // bgcolor="#ef3172"
       textAlign="center"
       className={classes.xs}
     >

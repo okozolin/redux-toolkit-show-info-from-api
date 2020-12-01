@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { TextField, IconButton, Grid } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+import { TextField, IconButton } from "@material-ui/core";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import InputAdornment from "@material-ui/core/InputAdornment";
 

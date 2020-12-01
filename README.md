@@ -45,10 +45,28 @@
 
 ## Implementation highlights
 
+1. Code
+
 - React/Redux-toolkit
 - Manage async API calls with redux-toolkit 'createAsyncThunk'
 - Use Data normalization pattern of { ids: [], entities: {}} with redux-toolkit 'createEntityAdapter'
+- Material-ui components composition
+  - Read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
+  - Example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
 
+2. Responsive- UI
+
+- Menu buttons in desktop turn to just icons in mobile
+<hr>
+<br>
+
+## Implementation Highlights
+
+1. Material-ui components composition
+   read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
+   example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
+2. Responsive- UI
+2.1 Menu buttons in desktop turn to just icons in mobile
 <hr>
 <br>
 

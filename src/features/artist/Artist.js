@@ -1,15 +1,14 @@
 import React from "react";
 import { Grid, Typography, Box, CircularProgress } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 import { capitalize } from "../../utils";
-import { useSelector } from "react-redux";
 import { artistSelector } from "./artistSlice";
 import { selectEventsIds } from "../events/eventsSlice";
 import EventsList from "../events/EventsList";
 
 export default function Artist() {
   const { artist, status, error } = useSelector(artistSelector);
-  console.log("status inside Artist--->", status);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
 
@@ -27,22 +26,23 @@ export default function Artist() {
         artist &&
         Object.keys(artist).length !== 0 &&
         artist.constructor === Object && (
-          <Grid container direction="row">
+          <Grid container justify="flex-start" alignItems="flex-start">
             <Grid
               item
               container
               direction="column"
               justify="center"
               alignItems="center"
+              sm={6}
             >
-              <Grid item xs={12}>
+              <Grid item>
                 <Box component="img" src={artist.image_url} height="320px" />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item>
                 <Typography>{capitalizedArtistName}</Typography>
               </Grid>
             </Grid>
-            <Grid item>
+            <Grid item sm={6}>
               {orderedEventsIds.length > 0 ? (
                 <EventsList
                   eventsIds={orderedEventsIds}

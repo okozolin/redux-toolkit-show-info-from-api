@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Box, Paper } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { Grid, Box, Paper, Typography } from "@material-ui/core";
 import Search from "./Search";
 import { url } from "../../utils";
 import { fetchArtist } from "../artist/artistSlice";
@@ -8,8 +8,19 @@ import Navbar from "../../app/Navbar";
 import Header from "../../components/Header";
 import FaceIcon from "@material-ui/icons/Face";
 import { useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  search: {
+    [theme.breakpoints.down("md")]: {
+      marginTop: 20,
+    },
+  },
+}));
 
 export default function Home() {
+  const classes = useStyles();
+
   console.count("Home");
   const [query, setQuery] = useState("");
   let history = useHistory();
@@ -23,7 +34,7 @@ export default function Home() {
       dispatch(fetchArtist({ artistPath, eventsPath }));
       history.push("/");
     }
-  }, [artistPath, query, dispatch, eventsPath]);
+  }, [artistPath, query, dispatch, eventsPath, history]);
 
   const handleChange = useCallback(
     (newValue) => {
@@ -39,20 +50,34 @@ export default function Home() {
           <Grid item xs={12}>
             <Header />
           </Grid>
-          <Grid item xs={12} container>
-            <Box clone order={{ xs: 1, sm: 1 }}>
-              <Grid item xs={6} sm={3}>
+          <Grid
+            item
+            xs={12}
+            container
+            alignItems="center"
+            justify="space-between"
+            style={{ padding: "0 20px", marginBottom: "20px" }}
+          >
+            <Box
+              clone
+              alignItems="center"
+              display="flex"
+              order={{ md: 1, lg: 1 }}
+              color="#ce285d"
+            >
+              <Grid item xm md={4}>
                 <FaceIcon fontSize="large" />
+                <Typography>oritkozolin</Typography>
               </Grid>
             </Box>
 
-            <Box clone order={{ xs: 2, sm: 3 }}>
-              <Grid item xs={6} sm={3}>
+            <Box clone order={{ md: 2, lg: 3 }}>
+              <Grid item xs={6} md>
                 <Navbar />
               </Grid>
             </Box>
-            <Box clone order={{ xs: 3, sm: 2 }}>
-              <Grid item xs={12} sm={3}>
+            <Box clone order={{ md: 3, lg: 2 }}>
+              <Grid item xs={12} lg={4} classes={{ item: classes.search }}>
                 <Search setSearchText={handleChange} />
               </Grid>
             </Box>
