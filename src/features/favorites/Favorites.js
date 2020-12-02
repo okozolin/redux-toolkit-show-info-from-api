@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   IconButton,
-  CardHeader,
   CardActionArea,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,11 +15,19 @@ import {
 } from "./favoritesSlice";
 import { NavLink } from "react-router-dom";
 
-import CancelIcon from "@material-ui/icons/Cancel";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Moment, calendarStrings } from "../../utils";
 import { useRouteMatch } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    borderBottom: "1px solid #eedbe1",
+  },
+}));
 
 const Favorites = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
@@ -33,59 +40,45 @@ const Favorites = () => {
   }
 
   return (
-    <Box textAlign="center" bgcolor="#b7fcde">
+    <Box>
       {favorites.length ? (
-        <Card>
+        <>
           {favorites.map((event, i) => (
-            <Card key={i}>
-              <CardHeader
-                action={
+            <Card square key={i} classes={{ root: classes.card }}>
+              <Box display="flex" justifyContent="space-between">
+                <CardActionArea
+                  component={NavLink}
+                  to={`${match.url}${event.lineup[0]}/events/${event.id}`}
+                >
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {event.lineup[0]}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {event.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      <Moment calendar={calendarStrings}>
+                        {event.datetime}
+                      </Moment>
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      {event.venue.country}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <Box>
                   <IconButton
-                    aria-label="settings"
+                    aria-label="delete"
                     onClick={() => dispatch(removeFromFavorites(event.id))}
                   >
-                    <CancelIcon />
+                    <DeleteIcon />
                   </IconButton>
-                }
-                title={
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {event.lineup[0]}
-                  </Typography>
-                }
-              />
-              <CardActionArea
-                key={event.id}
-                component={NavLink}
-                to={`${match.url}${event.lineup[0]}/events/${event.id}`}
-              >
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {event.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    Date :{" "}
-                    <Moment calendar={calendarStrings}>{event.datetime}</Moment>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {event.venue.country}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+                </Box>
+              </Box>
             </Card>
           ))}
-        </Card>
+        </>
       ) : (
         <Box>
           <Typography variant="body2">
@@ -98,27 +91,3 @@ const Favorites = () => {
 };
 
 export default Favorites;
-
-{
-  /* <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */
-}

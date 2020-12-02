@@ -47,7 +47,7 @@ export default function Event() {
 
       {event.title && <Typography variant="h2">{event.title}</Typography>}
 
-      <Paper elevation={0} variant="outlined">
+      <Paper square elevation={0} variant="outlined">
         <Box m={3}>
           <Typography>Event meta data</Typography>
           <Typography>Artist : {artist}</Typography>
@@ -55,7 +55,7 @@ export default function Event() {
         </Box>
       </Paper>
 
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>
           Venu information
           <Typography>
@@ -67,10 +67,10 @@ export default function Event() {
         </Box>
       </Paper>
 
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>special offers</Box>
       </Paper>
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>
           <Typography>{event?.venue.country}</Typography>
           <Typography>

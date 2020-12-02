@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <Paper elevation={1}>
+      <Paper square elevation={1}>
         <Grid container>
           <Grid item xs={12}>
             <Header />

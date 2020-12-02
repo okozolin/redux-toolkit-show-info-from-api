@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     width: "180px",
     color: "white",
     fontWeight: "bold",
-    borderRadius: "30px 30px 0 0 ",
+    borderRadius: "30px 0 30px 0 ",
   },
   tabHome: {
     background:
@@ -167,10 +167,11 @@ const Navbar = () => {
       </Toolbar>
 
       <Drawer
-        className={classes.drawer}
+        square
         variant="persistent"
         anchor="right"
         open={open}
+        className={classes.drawer}
         classes={{
           paper: classes.drawerPaper,
         }}
