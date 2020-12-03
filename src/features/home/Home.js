@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import clsx from "clsx";
 import { useDispatch } from "react-redux";
 import { Grid, Box, Paper, Typography } from "@material-ui/core";
 import Search from "./Search";
@@ -18,22 +17,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 20,
     },
   },
-
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${DRAWER_WIDTH}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: DRAWER_WIDTH,
-  },
-
   fireworks: {
     "&:hover": {},
   },
@@ -44,7 +27,6 @@ export default function Home() {
 
   console.count("Home");
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
 
   let history = useHistory();
 
@@ -80,9 +62,6 @@ export default function Home() {
             alignItems="center"
             justify="space-between"
             style={{ padding: "0 20px", marginBottom: "20px" }}
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
           >
             <Box
               clone
@@ -99,7 +78,7 @@ export default function Home() {
 
             <Box clone order={{ md: 2, lg: 3 }}>
               <Grid item xs={6} md>
-                <Navbar open={open} setOpen={setOpen} />
+                <Navbar />
               </Grid>
             </Box>
             <Box clone order={{ md: 3, lg: 2 }}>

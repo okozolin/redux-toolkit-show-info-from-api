@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -26,20 +25,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     fontFamily: "'Verdana', 'Roboto', 'Helvetica', 'Arial', sans-serif",
   },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${DRAWER_WIDTH}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: DRAWER_WIDTH,
-  },
   drawer: {
     width: DRAWER_WIDTH,
     flexShrink: 0,
@@ -60,23 +45,6 @@ const useStyles = makeStyles((theme) => ({
     background:
       "linear-gradient(to right,rgba(34,25,99,1) 0,rgba(206,40,93,1) 100%)",
   },
-  // content: {
-  //   flexGrow: 1,
-  //   padding: theme.spacing(3),
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   marginRight: -DRAWER_WIDTH,
-  // },
-  // contentShift: {
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginRight: 0,
-  // },
-
   tabButton: {
     [theme.breakpoints.down("xs")]: {
       display: "none",
@@ -120,8 +88,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ open, setOpen }) => {
+const Navbar = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
   const totalFavorites = useSelector(selectTotalFavorites);
 
   const handleDrawerToggle = () => {
