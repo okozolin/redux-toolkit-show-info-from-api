@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,8 +19,7 @@ import { NavLink } from "react-router-dom";
 
 import Favorites from "../features/favorites/Favorites";
 import { selectTotalFavorites } from "../features/favorites/favoritesSlice";
-
-const drawerWidth = 320;
+import { DRAWER_WIDTH } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,25 +33,19 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${DRAWER_WIDTH}px)`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: "none",
+    marginRight: DRAWER_WIDTH,
   },
   drawer: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
   },
   drawerHeader: {
     display: "flex",
@@ -73,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   //     easing: theme.transitions.easing.sharp,
   //     duration: theme.transitions.duration.leavingScreen,
   //   }),
-  //   marginRight: -drawerWidth,
+  //   marginRight: -DRAWER_WIDTH,
   // },
   // contentShift: {
   //   transition: theme.transitions.create("margin", {
@@ -126,9 +120,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ open, setOpen }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
   const totalFavorites = useSelector(selectTotalFavorites);
 
   const handleDrawerToggle = () => {
