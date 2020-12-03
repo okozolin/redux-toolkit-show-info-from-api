@@ -56,7 +56,15 @@
 
 2. Responsive- UI
 
-- Menu buttons in desktop turn to just icons in mobile
+- Menu buttons change shape when screen get smaller
+- Menu buttons turn to just icons in mobile
+- Search field size and position adjust to the change of screen size
+
+3. UI-UX
+
+- Show badge number of total exiting favorite items
+- Home button for future use
+
 <hr>
 <br>
 

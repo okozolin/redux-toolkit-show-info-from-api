@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -8,6 +9,7 @@ import {
   Toolbar,
   IconButton,
   Divider,
+  Badge,
 } from "@material-ui/core";
 import StarsIcon from "@material-ui/icons/Stars";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -15,6 +17,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import { NavLink } from "react-router-dom";
 
 import Favorites from "../features/favorites/Favorites";
+import { selectTotalFavorites } from "../features/favorites/favoritesSlice";
 
 const drawerWidth = 320;
 
@@ -116,11 +119,17 @@ const useStyles = makeStyles((theme) => ({
     },
     color: "#ce285d",
   },
+  badgeDesktop: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+  },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const totalFavorites = useSelector(selectTotalFavorites);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -146,15 +155,23 @@ const Navbar = () => {
           to="/"
           className={classes.mobileButton}
         >
-          <HomeIcon />
+          <HomeIcon fontSize="large" />
         </IconButton>
-        <Button
-          className={`${classes.tabButton} ${classes.tabFavorites}`}
-          onClick={handleDrawerToggle}
-          startIcon={<StarsIcon />}
+        <Badge
+          badgeContent={totalFavorites}
+          color="primary"
+          overlap="circle"
+          classes={{ root: classes.badgeDesktop }}
         >
-          Favorites
-        </Button>
+          <Button
+            className={`${classes.tabButton} ${classes.tabFavorites}`}
+            onClick={handleDrawerToggle}
+            startIcon={<StarsIcon />}
+          >
+            Favorites
+          </Button>
+        </Badge>
+
         <IconButton
           color="inherit"
           aria-label="Favorites"
@@ -162,7 +179,9 @@ const Navbar = () => {
           onClick={handleDrawerToggle}
           className={classes.mobileButton}
         >
-          <StarsIcon />
+          <Badge badgeContent={totalFavorites} color="primary">
+            <StarsIcon fontSize="large" />
+          </Badge>
         </IconButton>
       </Toolbar>
 
