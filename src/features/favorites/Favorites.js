@@ -51,17 +51,13 @@ const Favorites = () => {
                   to={`${match.url}${event.lineup[0]}/events/${event.id}`}
                 >
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5">
                       {event.lineup[0]}
                     </Typography>
                     {event.title && (
-                      <Box
-                        component="Typography"
-                        variant="body2"
-                        color="textSecondary"
-                      >
+                      <Typography variant="body2" color="textSecondary">
                         "{event.title}"
-                      </Box>
+                      </Typography>
                     )}
                     <Typography variant="body2" color="textSecondary">
                       <Moment calendar={calendarStrings}>

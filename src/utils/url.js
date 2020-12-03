@@ -1,4 +1,4 @@
-import { ARTISTS_API } from "../constants/constants";
+import { ARTISTS_API } from "../constants";
 
 const url = (query) => {
   return `${ARTISTS_API}${query}?app_id=45`;
