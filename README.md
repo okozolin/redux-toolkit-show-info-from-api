@@ -54,16 +54,19 @@
   - Read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
   - Example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
 
-2. Responsive- UI
+2. Responsive UI
 
 - Menu buttons change shape when screen get smaller
 - Menu buttons turn to just icons in mobile
 - Search field size and position adjust to the change of screen size
 
-3. UI-UX
+3. UI/UX
 
 - Show badge number of total exiting favorite items
 - Home button for future use
+- Remove favorites from favorites list
+- Go to event page from favorites list
+- Gradient color buttons style change on hover
 
 <hr>
 <br>

@@ -44,8 +44,11 @@ export default function Event() {
           </Typography>
         )}
       </Box>
-
-      {event.title && <Typography variant="h2">{event.title}</Typography>}
+      {event.title && (
+        <Typography variant="h3">
+          <Box m={3}>"{event.title}</Box>
+        </Typography>
+      )}
 
       <Paper square elevation={0} variant="outlined">
         <Box m={3}>

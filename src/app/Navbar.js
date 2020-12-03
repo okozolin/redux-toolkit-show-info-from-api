@@ -186,7 +186,7 @@ const Navbar = () => {
       </Toolbar>
 
       <Drawer
-        square
+        square="true"
         variant="persistent"
         anchor="right"
         open={open}

@@ -54,9 +54,15 @@ const Favorites = () => {
                     <Typography gutterBottom variant="h5" component="h2">
                       {event.lineup[0]}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {event.title}
-                    </Typography>
+                    {event.title && (
+                      <Box
+                        component="Typography"
+                        variant="body2"
+                        color="textSecondary"
+                      >
+                        "{event.title}"
+                      </Box>
+                    )}
                     <Typography variant="body2" color="textSecondary">
                       <Moment calendar={calendarStrings}>
                         {event.datetime}

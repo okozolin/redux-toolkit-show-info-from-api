@@ -68,7 +68,7 @@ export default function Home() {
               order={{ md: 1, lg: 1 }}
               color="#ce285d"
             >
-              <Grid item xm md={4} classes={classes.fireworks}>
+              <Grid item xs md={4} classes={{ root: classes.fireworks }}>
                 <FaceIcon fontSize="large" />
                 <Typography>oritkozolin</Typography>
               </Grid>
