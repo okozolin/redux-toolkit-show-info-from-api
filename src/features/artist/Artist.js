@@ -36,13 +36,20 @@ export default function Artist() {
               sm={6}
             >
               <Grid item>
-                <Box component="img" src={artist.image_url} height="320px" />
+                <Box m={2}>
+                  <Typography variant="h6">{capitalizedArtistName}</Typography>
+                </Box>
               </Grid>
+
               <Grid item>
-                <Typography>{capitalizedArtistName}</Typography>
+                <Box
+                  component="img"
+                  src={artist.image_url}
+                  width={{ xs: "200px", sm: "320px" }}
+                />
               </Grid>
             </Grid>
-            <Grid item sm={6}>
+            <Grid item xs sm={6}>
               {orderedEventsIds.length > 0 ? (
                 <EventsList
                   eventsIds={orderedEventsIds}

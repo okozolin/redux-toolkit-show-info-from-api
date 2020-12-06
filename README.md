@@ -68,6 +68,10 @@
 - Go to event page from favorites list
 - Gradient color buttons style change on hover
 
+4. Animations
+
+- Beating heart in for marking favorite items in event page
+
 <hr>
 <br>
 

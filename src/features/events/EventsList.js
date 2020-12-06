@@ -7,10 +7,11 @@ export default function EventsList({ eventsIds, artistName }) {
   console.count("EventsList");
 
   return (
-    <List m={3}>
+    <List>
       {eventsIds.map((eventId, index) => (
-        <Box key={index}>
+        <Box key={index} pr={3}>
           <ListItem
+            disableGutters
             button
             key={eventId}
             component={NavLink}
@@ -20,7 +21,7 @@ export default function EventsList({ eventsIds, artistName }) {
               <EventItem eventId={eventId} />
             </ListItemText>
           </ListItem>
-          <Divider variant="inset" component="li" />
+          <Divider component="li" />
         </Box>
       ))}
     </List>

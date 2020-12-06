@@ -9,7 +9,6 @@ import Header from "../../components/Header";
 import FaceIcon from "@material-ui/icons/Face";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { DRAWER_WIDTH } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   search: {

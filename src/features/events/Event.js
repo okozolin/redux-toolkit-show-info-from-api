@@ -12,6 +12,23 @@ import {
 import { selectEventById } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
+// color: #f06e7f;
+//     font-size: 22px;
+//     box-shadow: 0 0 0 0 rgba(240,110,127,.5);
+//     animation: heartBeat 1.5s infinite;
+//     border-radius: 50%;
+
+// @keyframes heartBeat
+// 0% {
+//   transform: scale(1);
+// }
+// 50% {
+//   transform: scale(1.1);
+// }
+// 100% {
+//   transform: scale(1);
+// }
+
 export default function Event() {
   const { id, artist } = useParams();
   const favorite = useSelector((state) => selectFavoriteById(state, id));
