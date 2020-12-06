@@ -5,7 +5,7 @@ import {
   Card,
   CardContent,
   IconButton,
-  CardHeader,
+  CardActionArea,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -13,55 +13,74 @@ import {
   updateFavorites,
   selectAllFavorites,
 } from "./favoritesSlice";
-import CancelIcon from "@material-ui/icons/Cancel";
+import { NavLink } from "react-router-dom";
+
+import DeleteIcon from "@material-ui/icons/Delete";
+import { Moment, calendarStrings } from "../../utils";
+import { useRouteMatch } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    borderBottom: "1px solid #eedbe1",
+  },
+}));
 
 const Favorites = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
-
+  const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
 
   const localStorageFavorites = localStorage.getItem("favorites");
-  console.log("localStorageFavorites in Favorites-->", localStorageFavorites);
+
   if (favorites.length === 0 && localStorageFavorites) {
     favorites = JSON.parse(localStorageFavorites);
     dispatch(updateFavorites(favorites));
   }
+
   return (
-    <Box textAlign="center" bgcolor="#b7fcde">
-      <Typography variant="h4">Favorites</Typography>
+    <Box>
       {favorites.length ? (
-        <Card>
+        <>
           {favorites.map((event, i) => (
-            <Card key={i}>
-              <CardHeader
-                action={
+            <Card square key={i} classes={{ root: classes.card }}>
+              <Box display="flex" justifyContent="space-between">
+                <CardActionArea
+                  component={NavLink}
+                  to={`${match.url}${event.lineup[0]}/events/${event.id}`}
+                >
+                  <CardContent>
+                    <Typography gutterBottom variant="h5">
+                      {event.lineup[0]}
+                    </Typography>
+                    {event.title && (
+                      <Typography variant="body2" color="textSecondary">
+                        "{event.title}"
+                      </Typography>
+                    )}
+                    <Typography variant="body2" color="textSecondary">
+                      <Moment calendar={calendarStrings}>
+                        {event.datetime}
+                      </Moment>
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      {event.venue.country}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <Box>
                   <IconButton
-                    aria-label="settings"
+                    aria-label="delete"
                     onClick={() => dispatch(removeFromFavorites(event.id))}
                   >
-                    <CancelIcon />
+                    <DeleteIcon />
                   </IconButton>
-                }
-                title={
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {event.lineup[0]}
-                  </Typography>
-                }
-              />
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {event.title}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {event.datetime}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {event.venue.country}
-                </Typography>
-              </CardContent>
+                </Box>
+              </Box>
             </Card>
           ))}
-        </Card>
+        </>
       ) : (
         <Box>
           <Typography variant="body2">

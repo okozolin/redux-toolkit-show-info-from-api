@@ -12,10 +12,27 @@ import {
 import { selectEventById } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
+// color: #f06e7f;
+//     font-size: 22px;
+//     box-shadow: 0 0 0 0 rgba(240,110,127,.5);
+//     animation: heartBeat 1.5s infinite;
+//     border-radius: 50%;
+
+// @keyframes heartBeat
+// 0% {
+//   transform: scale(1);
+// }
+// 50% {
+//   transform: scale(1.1);
+// }
+// 100% {
+//   transform: scale(1);
+// }
+
 export default function Event() {
   const { id, artist } = useParams();
-  const event = useSelector((state) => selectEventById(state, id));
   const favorite = useSelector((state) => selectFavoriteById(state, id));
+  const event = useSelector((state) => selectEventById(state, id)) || favorite;
 
   const dispatch = useDispatch();
   const toggleClick = (e) => {
@@ -39,15 +56,18 @@ export default function Event() {
             Add to Favorites
           </Typography>
         ) : (
-          <Typography component="span" color="secondery" variant="body1">
+          <Typography component="span" variant="body1">
             Remove from favorites
           </Typography>
         )}
       </Box>
+      {event.title && (
+        <Typography variant="h3">
+          <Box m={3}>"{event.title}</Box>
+        </Typography>
+      )}
 
-      {event.title && <Typography variant="h2">{event.title}</Typography>}
-
-      <Paper elevation={0} variant="outlined">
+      <Paper square elevation={0} variant="outlined">
         <Box m={3}>
           <Typography>Event meta data</Typography>
           <Typography>Artist : {artist}</Typography>
@@ -55,7 +75,7 @@ export default function Event() {
         </Box>
       </Paper>
 
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>
           Venu information
           <Typography>
@@ -67,10 +87,10 @@ export default function Event() {
         </Box>
       </Paper>
 
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>special offers</Box>
       </Paper>
-      <Paper variant="outlined">
+      <Paper square variant="outlined">
         <Box m={3}>
           <Typography>{event?.venue.country}</Typography>
           <Typography>

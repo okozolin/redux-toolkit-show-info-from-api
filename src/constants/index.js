@@ -11,6 +11,9 @@ export const FONT_SIZE_08 = "2rem"; // 32px
 export const FONT_SIZE_09 = "2.25rem"; // 36px
 export const FONT_SIZE_15 = "4.625rem"; // 74px
 
+//
+export const DRAWER_WIDTH = 320;
+
 // ASSETS PATHS
 //======================================
 export const ARTISTS_API = "https://rest.bandsintown.com/artists/";

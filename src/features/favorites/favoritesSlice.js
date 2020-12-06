@@ -35,6 +35,7 @@ export const {
   selectAll: selectAllFavorites,
   selectById: selectFavoriteById,
   selectIds: selectFavoritesIds,
+  selectTotal: selectTotalFavorites,
 } = favoritesAdapter.getSelectors((state) => state.favorites);
 
 export default favoritesSlice.reducer;
