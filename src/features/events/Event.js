@@ -9,7 +9,7 @@ import {
   removeFromFavorites,
   selectFavoriteById,
 } from "../favorites/favoritesSlice";
-import { selectEventById } from "./eventsSlice";
+import { selectEventById, selectArtist } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
 // color: #f06e7f;
@@ -33,12 +33,14 @@ export default function Event() {
   const { id, artist } = useParams();
   const favorite = useSelector((state) => selectFavoriteById(state, id));
   const event = useSelector((state) => selectEventById(state, id)) || favorite;
+  const { artist: artistData } = useSelector(selectArtist);
 
   const dispatch = useDispatch();
   const toggleClick = (e) => {
     favorite
       ? dispatch(removeFromFavorites(id))
-      : dispatch(addToFavorites(event));
+      : // : dispatch(addToFavorites(event));
+        dispatch(addToFavorites({ ...event, thumb: artistData.thumb_url }));
   };
 
   return (
@@ -68,6 +70,16 @@ export default function Event() {
       )}
 
       <Paper square elevation={0} variant="outlined">
+        {/* <Grid container>
+      <Grid item>
+                <Box
+                  component="img"
+                  src={artist.image_url}
+                  width={{ xs: "200px", sm: "320px" }}
+                />
+              </Grid>
+            </Grid> */}
+
         <Box m={3}>
           <Typography>Event meta data</Typography>
           <Typography>Artist : {artist}</Typography>

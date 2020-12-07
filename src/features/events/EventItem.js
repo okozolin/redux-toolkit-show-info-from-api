@@ -18,7 +18,6 @@ export default function EventItem({ eventId }) {
   // console.count("EventItem");
   const event = useSelector((state) => selectEventById(state, eventId));
   const { offers } = event;
-  console.log("event.datetime-->", event.datetime);
   return (
     <>
       <Grid container>
