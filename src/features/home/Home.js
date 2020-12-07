@@ -16,8 +16,19 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 20,
     },
   },
-  fireworks: {
-    "&:hover": {},
+  stretchText: {
+    letterSpacing: "normal",
+    transition: theme.transitions.create(["letter-spacing"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    "&:hover": {
+      letterSpacing: "3px",
+      transition: theme.transitions.create(["letter-spacing"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
   },
 }));
 
@@ -62,18 +73,17 @@ export default function Home() {
             justify="space-between"
             style={{ padding: "0 20px", marginBottom: "20px" }}
           >
-            <Box
-              clone
-              alignItems="center"
-              display="flex"
-              order={{ md: 1, lg: 1 }}
-              color="#ce285d"
-            >
-              <Grid item xs md={4} classes={{ root: classes.fireworks }}>
+            <Grid item xs md={4} classes={{ root: classes.stretchText }}>
+              <Box
+                alignItems="center"
+                display="flex"
+                order={{ md: 1, lg: 1 }}
+                color="#ce285d"
+              >
                 <FaceIcon fontSize="large" />
                 <Typography>oritkozolin</Typography>
-              </Grid>
-            </Box>
+              </Box>
+            </Grid>
 
             <Box clone order={{ md: 2, lg: 3 }}>
               <Grid item xs={6} md>
