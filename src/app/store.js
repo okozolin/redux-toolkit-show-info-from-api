@@ -10,6 +10,4 @@ const store = configureStore({
     favorites: favoritesReducer,
   },
 });
-console.log("store setup", store.getState()); // { ids: [], entities: {} }
-
 export default store;

@@ -21,6 +21,7 @@ const eventsAdapter = createEntityAdapter({
 const initialState = eventsAdapter.getInitialState({
   status: "idle",
   errors: null,
+  artist: {},
 });
 
 const eventsSlice = createSlice({
@@ -35,6 +36,7 @@ const eventsSlice = createSlice({
     [fetchEvents.fulfilled]: (state, { payload }) => {
       console.log("fetchEvents.fulfilled------->");
       state.status = "succeeded";
+      state.artist = payload[0].artist;
       eventsAdapter.setAll(state, payload);
     },
     [fetchEvents.rejected]: (state, action) => {
@@ -50,5 +52,7 @@ export const {
   selectById: selectEventById,
   selectIds: selectEventsIds,
 } = eventsAdapter.getSelectors((state) => state.events);
+
+export const selectArtist = (state) => state.artist;
 
 export default eventsSlice.reducer;

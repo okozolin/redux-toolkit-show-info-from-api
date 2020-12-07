@@ -13,7 +13,6 @@ const favoritesSlice = createSlice({
   initialState,
   reducers: {
     addToFavorites(state, action) {
-      console.log("action in favoritesSlice--->", action, state);
       favoritesAdapter.addOne(state, action.payload);
       localStorage.setItem("favorites", JSON.stringify(state.entities));
     },
