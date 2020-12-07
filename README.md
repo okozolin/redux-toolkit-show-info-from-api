@@ -70,6 +70,7 @@
 
 4. Animations
 
+- Hover my name...🤩
 - Beating heart in for marking favorite items in event page
 
 <hr>
