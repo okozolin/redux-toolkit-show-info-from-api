@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { makeStyles } from "@material-ui/core/styles";
+
 import {
   addToFavorites,
   removeFromFavorites,
@@ -12,24 +14,26 @@ import {
 import { selectEventById, selectArtist } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
-// color: #f06e7f;
-//     font-size: 22px;
-//     box-shadow: 0 0 0 0 rgba(240,110,127,.5);
-//     animation: heartBeat 1.5s infinite;
-//     border-radius: 50%;
+const useStyles = makeStyles((theme) => ({
+  beatingHeart: {
+    animation: "$heartBeat 1.5s infinite", // NOTE: prefix the animation name with $
+  },
 
-// @keyframes heartBeat
-// 0% {
-//   transform: scale(1);
-// }
-// 50% {
-//   transform: scale(1.1);
-// }
-// 100% {
-//   transform: scale(1);
-// }
+  "@keyframes heartBeat": {
+    "0%": {
+      transform: "scale(1)",
+    },
+    "50%": {
+      transform: "scale(1.3)",
+    },
+    "100%": {
+      transform: "scale(1)",
+    },
+  },
+}));
 
 export default function Event() {
+  const classes = useStyles();
   const { id, artist } = useParams();
   const favorite = useSelector((state) => selectFavoriteById(state, id));
   const event = useSelector((state) => selectEventById(state, id)) || favorite;
@@ -39,8 +43,7 @@ export default function Event() {
   const toggleClick = (e) => {
     favorite
       ? dispatch(removeFromFavorites(id))
-      : // : dispatch(addToFavorites(event));
-        dispatch(addToFavorites({ ...event, thumb: artistData.thumb_url }));
+      : dispatch(addToFavorites({ ...event, thumb: artistData.thumb_url }));
   };
 
   return (
@@ -51,7 +54,11 @@ export default function Event() {
           aria-label="More Options"
           onClick={toggleClick}
         >
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {favorite ? (
+            <FavoriteIcon className={classes.beatingHeart} />
+          ) : (
+            <FavoriteBorderIcon className={classes.beatingHeart} />
+          )}
         </IconButton>
         {!favorite ? (
           <Typography component="span" color="primary" variant="body1">
