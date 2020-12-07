@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography, Box, CircularProgress } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { useSelector } from "react-redux";
 
 import { capitalize } from "../../utils";
@@ -8,6 +9,7 @@ import { selectEventsIds } from "../events/eventsSlice";
 import EventsList from "../events/EventsList";
 
 export default function Artist() {
+  const [imgLoaded, setImgLoaded] = useState(false);
   const { artist, status, error } = useSelector(artistSelector);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
@@ -42,10 +44,15 @@ export default function Artist() {
               </Grid>
 
               <Grid item>
+                {/* {imgLoaded ? null : (
+                  <Skeleton variant="rect" width={200} height={200} />
+                )} */}
                 <Box
+                  style={imgLoaded ? {} : { display: "none" }}
                   component="img"
                   src={artist.image_url}
                   width={{ xs: "200px", sm: "320px" }}
+                  onLoad={() => setImgLoaded(true)}
                 />
               </Grid>
             </Grid>
