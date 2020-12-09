@@ -71,7 +71,7 @@
 4. Animations
 
 - Hover my name...🤩
-- Beating heart in for marking favorite items in event page
+- Beating heart as favorite, in event page
 
 <hr>
 <br>

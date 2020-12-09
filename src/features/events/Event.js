@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Paper, Box, IconButton } from "@material-ui/core";
+import { Typography, Paper, Box, IconButton, Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -77,21 +77,23 @@ export default function Event() {
       )}
 
       <Paper square elevation={0} variant="outlined">
-        {/* <Grid container>
-      <Grid item>
-                <Box
-                  component="img"
-                  src={artist.image_url}
-                  width={{ xs: "200px", sm: "320px" }}
-                />
-              </Grid>
-            </Grid> */}
-
-        <Box m={3}>
-          <Typography>Event meta data</Typography>
-          <Typography>Artist : {artist}</Typography>
-          <Typography>Event id: {id}</Typography>
-        </Box>
+        <Grid container>
+          <Grid item>
+            <Box
+              m={1}
+              component="img"
+              src={artistData.image_url}
+              width={{ xs: "100px", sm: "220px" }}
+            />
+          </Grid>
+          <Grid item sm={6}>
+            <Box m={3}>
+              <Typography>Event meta data</Typography>
+              <Typography>Artist : {artist}</Typography>
+              <Typography>Event id: {id}</Typography>
+            </Box>
+          </Grid>
+        </Grid>
       </Paper>
 
       <Paper square variant="outlined">
