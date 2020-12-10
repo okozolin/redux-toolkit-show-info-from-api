@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography, Box, CircularProgress } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useSelector } from "react-redux";
@@ -7,9 +7,25 @@ import { capitalize } from "../../utils";
 import { artistSelector } from "./artistSlice";
 import { selectEventsIds } from "../events/eventsSlice";
 import EventsList from "../events/EventsList";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { url } from "../../utils";
+import { fetchArtist } from "../artist/artistSlice";
 
 export default function Artist() {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const query = useParams();
+
+  const dispatch = useDispatch();
+  const artistPath = query ? url(query.artist) : "";
+  const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
+
+  useEffect(() => {
+    if (query.artist) {
+      dispatch(fetchArtist({ artistPath, eventsPath }));
+    }
+  }, [artistPath, query, dispatch, eventsPath]);
+
   const { artist, status, error } = useSelector(artistSelector);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
@@ -23,7 +39,7 @@ export default function Artist() {
       {status === "loading" ? (
         <CircularProgress />
       ) : error ? (
-        <div>Error: Failed to load</div>
+        <Box m={3}>Error: Failed to load</Box>
       ) : (
         artist &&
         Object.keys(artist).length !== 0 &&
