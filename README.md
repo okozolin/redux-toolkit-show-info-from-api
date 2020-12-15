@@ -54,7 +54,8 @@
   - Read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
   - Example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
 - Application flow is controled by URL. Meaning, you can fetch info by simply typing the correct url. e.g. "localhost:3000/beyonce"
-- Store data is used over new fetch in cases whre artist has not changed
+- Store data is used over new fetch in cases where artist has not changed
+- Built in selector function memoization with 'createEntityAdapter'
 
 2. Responsive UI
 

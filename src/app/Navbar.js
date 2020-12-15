@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -19,6 +19,7 @@ import { NavLink } from "react-router-dom";
 import Favorites from "../features/favorites/Favorites";
 import { selectTotalFavorites } from "../features/favorites/favoritesSlice";
 import { DRAWER_WIDTH } from "../constants";
+import { ClearContext } from "./context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const { value, setValue } = useContext(ClearContext);
 
   const totalFavorites = useSelector(selectTotalFavorites);
 
@@ -103,6 +105,7 @@ const Navbar = () => {
       <Toolbar disableGutters>
         <Box flexGrow={1} />
         <Button
+          onClick={() => setValue("")}
           className={`${classes.tabButton} ${classes.tabHome}`}
           startIcon={<HomeIcon />}
           component={NavLink}
