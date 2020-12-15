@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Typography,
   Box,
@@ -20,6 +20,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Moment, calendarStrings } from "../../utils";
 import { useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { DrawerContext } from "../../app/context";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Favorites = () => {
   const classes = useStyles();
+  const { open, setOpen } = useContext(DrawerContext);
+
   const dispatch = useDispatch();
   const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
@@ -57,6 +60,7 @@ const Favorites = () => {
           {favorites.map((event, i) => (
             <Card square key={i} classes={{ root: classes.card }}>
               <CardActionArea
+                onClick={() => setOpen(false)}
                 classes={{ root: classes.actionAria }}
                 component={NavLink}
                 to={{
