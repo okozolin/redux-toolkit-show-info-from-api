@@ -59,7 +59,10 @@ const Favorites = () => {
               <CardActionArea
                 classes={{ root: classes.actionAria }}
                 component={NavLink}
-                to={`${match.url}${event.lineup[0]}/events/${event.id}`}
+                to={{
+                  pathname: `${match.url}${event.lineup[0]}/events/${event.id}`,
+                  state: { from: "favorites" },
+                }}
               >
                 <CardMedia
                   className={classes.thumb}

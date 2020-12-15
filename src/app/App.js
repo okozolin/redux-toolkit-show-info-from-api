@@ -29,7 +29,7 @@ function App() {
           <CssBaseline />
           <Home />
           <Switch>
-            <Route path="/:artist/events/:id">
+            <Route path="/:artist/events/:id" exact>
               <Event />
             </Route>
             <Route path="/:artist" exact>

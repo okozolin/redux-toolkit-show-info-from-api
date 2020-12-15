@@ -15,7 +15,10 @@ export default function EventsList({ eventsIds, artistName }) {
             button
             key={eventId}
             component={NavLink}
-            to={`${artistName}/events/${eventId}`}
+            to={{
+              pathname: `${artistName}/events/${eventId}`,
+              state: { from: "eventsList" },
+            }}
           >
             <ListItemText>
               <EventItem eventId={eventId} />
