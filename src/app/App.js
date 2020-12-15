@@ -1,12 +1,14 @@
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./store";
-import Home from "../features/home/Home";
-import Event from "../features/events/Event";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Artist from "../features/artist/Artist";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import store from "./store";
+
+import Home from "../features/home/Home";
+import Clear from "../features/home/Clear";
+import Event from "../features/events/Event";
+import Artist from "../features/artist/Artist";
 
 const theme = createMuiTheme({
   typography: {
@@ -27,8 +29,15 @@ function App() {
           <CssBaseline />
           <Home />
           <Switch>
-            <Route path="/:artist/events/:id" component={Event} />
-            <Route path="/" exact component={Artist} />
+            <Route path="/:artist/events/:id" exact>
+              <Event />
+            </Route>
+            <Route path="/:artist" exact>
+              <Artist />
+            </Route>
+            <Route path="/" exact>
+              <Clear />
+            </Route>
           </Switch>
         </Router>
       </ThemeProvider>

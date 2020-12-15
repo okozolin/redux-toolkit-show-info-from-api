@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Grid, Box, Paper, Typography } from "@material-ui/core";
 import Search from "./Search";
-import { url } from "../../utils";
-import { fetchArtist } from "../artist/artistSlice";
 import Navbar from "../../app/Navbar";
 import Header from "../../components/Header";
 import FaceIcon from "@material-ui/icons/Face";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -95,28 +91,6 @@ export default function Home() {
   const classes = useStyles();
 
   console.count("Home");
-  const [query, setQuery] = useState("");
-
-  let history = useHistory();
-
-  const dispatch = useDispatch();
-  const artistPath = url(query);
-  const eventsPath = url(`${query}/events`) + "&date=all";
-
-  useEffect(() => {
-    if (query) {
-      dispatch(fetchArtist({ artistPath, eventsPath }));
-      history.push("/");
-    }
-  }, [artistPath, query, dispatch, eventsPath, history]);
-
-  const handleChange = useCallback(
-    (newValue) => {
-      setQuery(newValue);
-    },
-    [setQuery]
-  );
-
   return (
     <>
       <Paper square elevation={1}>
@@ -154,7 +128,7 @@ export default function Home() {
             </Box>
             <Box clone order={{ md: 3, lg: 2 }}>
               <Grid item xs={12} lg={4} classes={{ item: classes.search }}>
-                <Search setSearchText={handleChange} />
+                <Search />
               </Grid>
             </Box>
           </Grid>

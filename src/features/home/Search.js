@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { TextField, IconButton } from "@material-ui/core";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-export default function Search({ setSearchText }) {
+export default function Search() {
   const [value, setValue] = useState("");
+
+  let history = useHistory();
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      setSearchText(value);
+      history.push(`/${value}`);
     } else if (e.type === "click") {
-      setSearchText(value);
+      history.push(`/${value}`);
     }
   };
   return (
@@ -27,11 +30,7 @@ export default function Search({ setSearchText }) {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton
-                // className={classes.iconButton}
-                aria-label="search"
-                onClick={handleSearch}
-              >
+              <IconButton aria-label="search" onClick={handleSearch}>
                 <MusicNoteIcon />
               </IconButton>
             </InputAdornment>
