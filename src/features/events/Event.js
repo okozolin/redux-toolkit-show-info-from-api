@@ -23,6 +23,7 @@ import { Moment, calendarStrings } from "../../utils";
 
 import { url } from "../../utils";
 import { fetchArtist, artistSelector } from "../artist/artistSlice";
+import Map from "./Map";
 
 const useStyles = makeStyles((theme) => ({
   beatingHeart: {
@@ -83,7 +84,7 @@ export default function Event() {
         <Box m={3}>Error: Failed to load</Box>
       ) : (
         event && (
-          <div>
+          <>
             <Box>
               <IconButton
                 style={{ color: "magenta" }}
@@ -166,9 +167,14 @@ export default function Event() {
                 Venu map
               </Box>
             </Paper>
-          </div>
+            <Box p={4} mb={3}>
+              <Paper square variant="outlined">
+                <Map lat={event.venue.latitude} lon={event.venue.longitude} />
+              </Paper>
+            </Box>
+          </>
         )
-      )}{" "}
+      )}
     </>
   );
 }
