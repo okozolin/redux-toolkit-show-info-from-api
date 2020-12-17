@@ -6,6 +6,9 @@ export const fetchArtist = createAsyncThunk(
   "artist/fetchArtist",
   async ({ artistPath, eventsPath }, thunkAPI) => {
     const response = await Api.getData(artistPath);
+    if (response.length == 0 || response?.error === "Not Found")
+      return response;
+
     await thunkAPI.dispatch(fetchEvents(eventsPath));
     return response;
   }
@@ -39,6 +42,7 @@ const artistSlice = createSlice({
       console.log("fetchArtist.rejected------->");
       state.status = "failed";
       state.error = action.error;
+      state.artist = {};
     },
   },
 });

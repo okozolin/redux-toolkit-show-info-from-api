@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   button: {
+    marginRight: 24,
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -20,7 +21,7 @@ export default function EventItem({ eventId }) {
   const { offers } = event;
   return (
     <>
-      <Grid container>
+      <Grid container wrap="nowrap">
         <Grid item xs={2}>
           <Box display="flex" flexDirection="column" textAlign="center">
             <Box
@@ -50,7 +51,7 @@ export default function EventItem({ eventId }) {
           </Box>
         </Grid>
         {offers.length > 0 && (
-          <Grid item xs={2} classes={{ item: classes.button }}>
+          <Grid item xs classes={{ item: classes.button }}>
             <Button variant="outlined" color="primary">
               {offers[0].type}
             </Button>

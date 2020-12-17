@@ -17,7 +17,7 @@
   - Event venue information
   - Special offers related to event
 - Add to favorites button
-- Display the venue using a map service of your choice
+- Display the venue location on a map
 
 #### **Upon selecting - add to favorites:**
 

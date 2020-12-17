@@ -7,26 +7,31 @@ export default function EventsList({ eventsIds, artistName }) {
   console.count("EventsList");
 
   return (
-    <List>
-      {eventsIds.map((eventId, index) => (
-        <Box key={index} pr={3}>
-          <ListItem
-            disableGutters
-            button
-            key={eventId}
-            component={NavLink}
-            to={{
-              pathname: `${artistName}/events/${eventId}`,
-              state: { from: "eventsList" },
-            }}
-          >
-            <ListItemText>
-              <EventItem eventId={eventId} />
-            </ListItemText>
-          </ListItem>
-          <Divider component="li" />
-        </Box>
-      ))}
-    </List>
+    <>
+      <Box>
+        <List>
+          {eventsIds.map((eventId, index) => (
+            <>
+              <ListItem
+                key={index}
+                disableGutters
+                button
+                key={eventId}
+                component={NavLink}
+                to={{
+                  pathname: `${artistName}/events/${eventId}`,
+                  state: { from: "eventsList" },
+                }}
+              >
+                <ListItemText>
+                  <EventItem eventId={eventId} />
+                </ListItemText>
+              </ListItem>
+              <Divider component="li" />
+            </>
+          ))}
+        </List>
+      </Box>
+    </>
   );
 }

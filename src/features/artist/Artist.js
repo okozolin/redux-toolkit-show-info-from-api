@@ -13,13 +13,15 @@ import { url } from "../../utils";
 export default function Artist() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
-
-  const { artist, status, error } = useSelector(artistSelector);
+  const { artist, status, error: responseError } = useSelector(artistSelector);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
+  const capitalizedQueryParam = capitalize(query.artist);
   const imgRef = useRef();
 
   const dispatch = useDispatch();
+
+  const error = !artist || artist.error;
 
   useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {
@@ -47,7 +49,14 @@ export default function Artist() {
       {status === "loading" ? (
         <CircularProgress />
       ) : error ? (
-        <Box m={3}>Error: Failed to load</Box>
+        <Box m={3}>
+          <Typography component="div">
+            <p>
+              Could not find <b>{capitalizedQueryParam}</b>.
+            </p>
+            <p>May be artist does not exist or wrong spelling.</p>
+          </Typography>
+        </Box>
       ) : (
         artist &&
         Object.keys(artist).length !== 0 &&
@@ -81,20 +90,24 @@ export default function Artist() {
                 />
               </Grid>
             </Grid>
-            <Grid item xs sm={6}>
-              {orderedEventsIds.length > 0 ? (
+            {orderedEventsIds.length > 0 ? (
+              <Grid item xs sm={6}>
                 <EventsList
                   eventsIds={orderedEventsIds}
                   artistName={artist.name}
                 />
-              ) : (
+              </Grid>
+            ) : (
+              <Grid item>
                 <Box m={3}>
+                  <Typography>Did not find {capitalizedQueryParam},</Typography>
+
                   <Typography>
-                    Did not find any events for {capitalizedArtistName}
+                    or any events for {capitalizedQueryParam}
                   </Typography>
                 </Box>
-              )}
-            </Grid>
+              </Grid>
+            )}
           </Grid>
         )
       )}
