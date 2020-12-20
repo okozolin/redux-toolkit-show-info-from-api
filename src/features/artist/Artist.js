@@ -4,9 +4,12 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { useSelector, useDispatch } from "react-redux";
 
 import { capitalize } from "../../utils";
-import { selectEventsIds } from "../events/eventsSlice";
+import {
+  selectEventsIds,
+  selectEvents,
+  fetchEvents,
+} from "../events/eventsSlice";
 import EventsList from "../events/EventsList";
-import { fetchArtist, artistSelector } from "../artist/artistSlice";
 import { useParams } from "react-router-dom";
 import { url } from "../../utils";
 
@@ -14,7 +17,7 @@ export default function Artist() {
   console.count("Artist");
   const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
-  const { artist, status, error: responseError } = useSelector(artistSelector);
+  const { artist, status } = useSelector(selectEvents);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
   const capitalizedQueryParam = capitalize(query.artist);
@@ -22,7 +25,7 @@ export default function Artist() {
 
   const dispatch = useDispatch();
 
-  const error = !artist || artist.error;
+  const error = !artist || status === "failed";
 
   useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {
@@ -31,15 +34,14 @@ export default function Artist() {
   }, []);
 
   useEffect(() => {
-    const artistPath = query ? url(query.artist) : "";
     const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
-    if (
-      query.artist &&
-      query.artist?.toLowerCase() !== artist.name?.toLowerCase()
-    ) {
-      dispatch(fetchArtist({ artistPath, eventsPath }));
-    }
-  }, [query, dispatch, artist.name]);
+    // if (
+    //   query.artist &&
+    //   query.artist?.toLowerCase() !== artist?.name.toLowerCase()
+    // ) {
+    dispatch(fetchEvents(eventsPath));
+    // }
+  }, [query.artist, dispatch]);
 
   if (status === "idle") {
     return <></>;
@@ -48,7 +50,9 @@ export default function Artist() {
   return (
     <>
       {status === "loading" ? (
-        <CircularProgress />
+        <Box display="flex" justifyContent="center" alignItems="center" m={4}>
+          <CircularProgress />
+        </Box>
       ) : error ? (
         <Box m={3}>
           <Typography component="div">

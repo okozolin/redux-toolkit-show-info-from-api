@@ -22,7 +22,8 @@ import { selectEventById } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
 import { url } from "../../utils";
-import { fetchArtist, artistSelector } from "../artist/artistSlice";
+import { selectEvents, fetchEvents } from "../events/eventsSlice";
+
 import Map from "./Map";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,18 +52,19 @@ export default function Event() {
   const { id, artist: artistParam } = useParams();
   const favorite = useSelector((state) => selectFavoriteById(state, id));
   const event = useSelector((state) => selectEventById(state, id)) || favorite;
-  const { artist, status, error } = useSelector(artistSelector);
+  const { artist, status } = useSelector(selectEvents);
 
   const imageUrl = favorite ? favorite.thumb : artist?.image_url;
 
   const dispatch = useDispatch();
+  const error = !artist || status === "failed";
+
   useEffect(() => {
-    const artistPath = artistParam ? url(artistParam) : "";
     const eventsPath = artistParam
       ? url(`${artistParam}/events`) + "&date=all"
       : "";
     if (from !== "eventsList") {
-      dispatch(fetchArtist({ artistPath, eventsPath }));
+      dispatch(fetchEvents(eventsPath));
     }
   }, [artistParam, from, dispatch]);
 
@@ -79,7 +81,9 @@ export default function Event() {
   return (
     <>
       {status === "loading" ? (
-        <CircularProgress />
+        <Box display="flex" justifyContent="center" alignItems="center" m={4}>
+          <CircularProgress />
+        </Box>
       ) : error ? (
         <Box m={3}>Error: Failed to load</Box>
       ) : event ? (

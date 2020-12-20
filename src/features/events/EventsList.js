@@ -5,17 +5,15 @@ import { NavLink } from "react-router-dom";
 
 export default function EventsList({ eventsIds, artistName }) {
   console.count("EventsList");
-
   return (
     <>
       <Box>
         <List>
           {eventsIds.map((eventId) => (
-            <>
+            <div key={eventId}>
               <ListItem
                 disableGutters
                 button
-                key={eventId}
                 component={NavLink}
                 to={{
                   pathname: `${artistName}/events/${eventId}`,
@@ -27,7 +25,7 @@ export default function EventsList({ eventsIds, artistName }) {
                 </ListItemText>
               </ListItem>
               <Divider component="li" />
-            </>
+            </div>
           ))}
         </List>
       </Box>

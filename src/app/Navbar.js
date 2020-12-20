@@ -101,7 +101,7 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-    dispatch(searchCleared);
+    dispatch(searchCleared());
   };
 
   return (
@@ -118,6 +118,7 @@ const Navbar = () => {
           Home
         </Button>
         <IconButton
+          onClick={handleClick}
           color="inherit"
           aria-label="Home"
           edge="start"
