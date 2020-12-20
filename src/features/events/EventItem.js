@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EventItem({ eventId }) {
   const classes = useStyles();
-  // console.count("EventItem");
   const event = useSelector((state) => selectEventById(state, eventId));
   const { offers } = event;
   return (

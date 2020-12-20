@@ -10,10 +10,9 @@ export default function EventsList({ eventsIds, artistName }) {
     <>
       <Box>
         <List>
-          {eventsIds.map((eventId, index) => (
+          {eventsIds.map((eventId) => (
             <>
               <ListItem
-                key={index}
                 disableGutters
                 button
                 key={eventId}

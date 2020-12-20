@@ -6,7 +6,7 @@ export const fetchArtist = createAsyncThunk(
   "artist/fetchArtist",
   async ({ artistPath, eventsPath }, thunkAPI) => {
     const response = await Api.getData(artistPath);
-    if (response.length == 0 || response?.error === "Not Found")
+    if (response.length === 0 || response?.error === "Not Found")
       return response;
 
     await thunkAPI.dispatch(fetchEvents(eventsPath));

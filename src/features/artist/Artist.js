@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { url } from "../../utils";
 
 export default function Artist() {
+  console.count("Artist");
   const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
   const { artist, status, error: responseError } = useSelector(artistSelector);
@@ -54,7 +55,7 @@ export default function Artist() {
             <p>
               Could not find <b>{capitalizedQueryParam}</b>.
             </p>
-            <p>May be artist does not exist or wrong spelling.</p>
+            <p>Maybe we do not have this data, or wrong spelling.</p>
           </Typography>
         </Box>
       ) : (
