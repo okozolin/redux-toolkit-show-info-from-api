@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import {
   Typography,
   Box,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorites = () => {
+const Favorites = memo(() => {
   const classes = useStyles();
   const { open, setOpen } = useContext(DrawerContext);
 
@@ -112,6 +112,6 @@ const Favorites = () => {
       )}
     </Box>
   );
-};
+});
 
 export default Favorites;

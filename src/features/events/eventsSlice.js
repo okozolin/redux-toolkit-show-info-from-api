@@ -30,17 +30,14 @@ const eventsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchEvents.pending]: (state, action) => {
-      console.log("fetchEvents.pending------->");
       state.status = "loading";
     },
     [fetchEvents.fulfilled]: (state, { payload }) => {
-      console.log("fetchEvents.fulfilled------->");
       state.status = "succeeded";
       state.artist = payload[0].artist;
       eventsAdapter.setAll(state, payload);
     },
     [fetchEvents.rejected]: (state, action) => {
-      console.log("fetchEvents.rejected------->", action);
       state.status = "failed";
       state.error = action.error;
     },

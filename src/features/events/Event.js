@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Event() {
-  console.count("Event");
   const classes = useStyles();
   const { state } = useLocation();
   const { from } = state || { from: "home" };

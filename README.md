@@ -47,15 +47,17 @@
 
 1. Code
 
-- React/Redux-toolkit
+- Framework: React. Global state management : Redux-toolkit
 - Manage async API calls with redux-toolkit 'createAsyncThunk'
 - Use Data normalization pattern of { ids: [], entities: {}} with redux-toolkit 'createEntityAdapter'
 - Material-ui components composition
   - Read about caveats with inline function as an argument for the component prop [here](https://material-ui.com/guides/composition/#caveat-with-inlining)
   - Example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
 - Application flow is controled by URL. Meaning, you can fetch info by simply typing the correct url. e.g. "localhost:3000/beyonce"
-- Store data is used over new fetch in cases where artist has not changed
-- Built in selector function memoization with 'createEntityAdapter'
+- When possible 'store' data is used instead of new fetch in cases where artist has not changed
+- Performance:
+  - Built in selector function memoization with 'createEntityAdapter'
+  - Use 'memo' to memoize components when needed
 
 2. Responsive UI
 

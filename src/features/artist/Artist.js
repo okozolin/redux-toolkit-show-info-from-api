@@ -14,7 +14,6 @@ import { useParams } from "react-router-dom";
 import { url } from "../../utils";
 
 export default function Artist() {
-  console.count("Artist");
   const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
   const { artist, status } = useSelector(selectEvents);
@@ -35,13 +34,13 @@ export default function Artist() {
 
   useEffect(() => {
     const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
-    // if (
-    //   query.artist &&
-    //   query.artist?.toLowerCase() !== artist?.name.toLowerCase()
-    // ) {
-    dispatch(fetchEvents(eventsPath));
-    // }
-  }, [query.artist, dispatch]);
+    if (
+      query.artist &&
+      query.artist?.toLowerCase() !== artist?.name?.toLowerCase()
+    ) {
+      dispatch(fetchEvents(eventsPath));
+    }
+  }, [query, dispatch, artist.name]);
 
   if (status === "idle") {
     return <></>;

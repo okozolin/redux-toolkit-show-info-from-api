@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Typography, Box, Grid, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { selectEventById } from "./eventsSlice";
@@ -14,18 +14,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EventItem({ eventId }) {
+const EventItem = memo(({ eventId }) => {
   const classes = useStyles();
   const event = useSelector((state) => selectEventById(state, eventId));
   const { offers } = event;
+
   return (
     <>
       <Grid container wrap="nowrap">
         <Grid item xs={2}>
-          <Box display="flex" flexDirection="column" textAlign="center">
+          <Box
+            display="flex"
+            color={"#33a8ac"}
+            flexDirection="column"
+            textAlign="center"
+          >
             <Box
               fontSize={12}
-              color={"#33a8ac"}
               style={{
                 textTransform: "uppercase",
                 fontWeight: "500",
@@ -34,10 +39,10 @@ export default function EventItem({ eventId }) {
             >
               <Moment format="MMM">{event.datetime}</Moment>
             </Box>
-            <Box fontSize={26} color={"#33a8ac"} style={{ lineHeight: "29px" }}>
+            <Box fontSize={26} style={{ lineHeight: "29px" }}>
               <Moment format="D">{event.datetime}</Moment>
             </Box>
-            <Box fontSize={12} color={"#33a8ac"} style={{ lineHeight: "12px" }}>
+            <Box fontSize={12} style={{ lineHeight: "12px" }}>
               <Moment format="YYYY">{event.datetime}</Moment>
             </Box>
           </Box>
@@ -59,4 +64,6 @@ export default function EventItem({ eventId }) {
       </Grid>
     </>
   );
-}
+});
+
+export default EventItem;

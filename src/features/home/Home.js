@@ -90,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
-  console.count("Home");
   return (
     <>
       <Paper square elevation={1}>
