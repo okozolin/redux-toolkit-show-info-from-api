@@ -22,7 +22,8 @@ import { selectEventById } from "./eventsSlice";
 import { Moment, calendarStrings } from "../../utils";
 
 import { url } from "../../utils";
-import { fetchArtist, artistSelector } from "../artist/artistSlice";
+import { selectEvents, fetchEvents } from "../events/eventsSlice";
+
 import Map from "./Map";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,25 +45,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Event() {
-  console.count("Event");
   const classes = useStyles();
   const { state } = useLocation();
   const { from } = state || { from: "home" };
   const { id, artist: artistParam } = useParams();
   const favorite = useSelector((state) => selectFavoriteById(state, id));
   const event = useSelector((state) => selectEventById(state, id)) || favorite;
-  const { artist, status, error } = useSelector(artistSelector);
+  const { artist, status } = useSelector(selectEvents);
 
   const imageUrl = favorite ? favorite.thumb : artist?.image_url;
 
   const dispatch = useDispatch();
+  const error = !artist || status === "failed";
+
   useEffect(() => {
-    const artistPath = artistParam ? url(artistParam) : "";
     const eventsPath = artistParam
       ? url(`${artistParam}/events`) + "&date=all"
       : "";
     if (from !== "eventsList") {
-      dispatch(fetchArtist({ artistPath, eventsPath }));
+      dispatch(fetchEvents(eventsPath));
     }
   }, [artistParam, from, dispatch]);
 
@@ -79,101 +80,107 @@ export default function Event() {
   return (
     <>
       {status === "loading" ? (
-        <CircularProgress />
+        <Box display="flex" justifyContent="center" alignItems="center" m={4}>
+          <CircularProgress />
+        </Box>
       ) : error ? (
         <Box m={3}>Error: Failed to load</Box>
-      ) : (
-        event && (
-          <>
-            <Box>
-              <IconButton
-                style={{ color: "magenta" }}
-                aria-label="More Options"
-                onClick={toggleClick}
-              >
-                {favorite ? (
-                  <FavoriteIcon className={classes.beatingHeart} />
-                ) : (
-                  <FavoriteBorderIcon className={classes.beatingHeart} />
-                )}
-              </IconButton>
-              {!favorite ? (
-                <Typography component="span" color="primary" variant="body1">
-                  Add to Favorites
-                </Typography>
+      ) : event ? (
+        <>
+          <Box>
+            <IconButton
+              style={{ color: "magenta" }}
+              aria-label="More Options"
+              onClick={toggleClick}
+            >
+              {favorite ? (
+                <FavoriteIcon className={classes.beatingHeart} />
               ) : (
-                <Typography component="span" variant="body1">
-                  Remove from favorites
-                </Typography>
+                <FavoriteBorderIcon className={classes.beatingHeart} />
               )}
-            </Box>
-            {event.title && (
-              <Typography variant="h3">
-                <Box m={3}>"{event.title}</Box>
+            </IconButton>
+            {!favorite ? (
+              <Typography component="span" color="primary" variant="body1">
+                Add to Favorites
+              </Typography>
+            ) : (
+              <Typography component="span" variant="body1">
+                Remove from favorites
               </Typography>
             )}
+          </Box>
+          {event.title && (
+            <Typography variant="h3">
+              <Box m={3}>"{event.title}</Box>
+            </Typography>
+          )}
 
-            <Paper square elevation={0} variant="outlined">
-              <Grid container>
-                <Grid
-                  item
-                  component={NavLink}
-                  to={{
-                    pathname: `/${artistParam}`,
-                    state: { from: "event" },
-                  }}
-                  exact
-                >
-                  <Box
-                    m={1}
-                    component="img"
-                    src={imageUrl}
-                    width={{ xs: "100px", sm: "220px" }}
-                  />
-                </Grid>
-                <Grid item sm={6}>
-                  <Box m={3}>
-                    <Typography>Event meta data</Typography>
-                    <Typography>Artist : {artistParam}</Typography>
-                    <Typography>Event id: {id}</Typography>
-                  </Box>
-                </Grid>
+          <Paper square elevation={0} variant="outlined">
+            <Grid container>
+              <Grid
+                item
+                component={NavLink}
+                to={{
+                  pathname: `/${artistParam}`,
+                  state: { from: "event" },
+                }}
+                exact
+              >
+                <Box
+                  m={1}
+                  component="img"
+                  src={imageUrl}
+                  width={{ xs: "100px", sm: "220px" }}
+                />
               </Grid>
-            </Paper>
+              <Grid item sm={6}>
+                <Box m={3}>
+                  <Typography>Event meta data</Typography>
+                  <Typography>Artist : {artistParam}</Typography>
+                  <Typography>Event id: {id}</Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
 
-            <Paper square variant="outlined">
-              <Box m={3}>
-                Venu information
-                <Typography>
-                  Date :{" "}
-                  <Moment calendar={calendarStrings}>{event.datetime}</Moment>
-                </Typography>
-                <Typography>
-                  Time: <Moment format="HH:mm">{event.datetime}</Moment>
-                </Typography>
-              </Box>
-            </Paper>
-
-            <Paper square variant="outlined">
-              <Box m={3}>special offers</Box>
-            </Paper>
-            <Paper square variant="outlined">
-              <Box m={3}>
-                <Typography>{event?.venue.country}</Typography>
-                <Typography>
-                  {event?.venue.city}, {event?.venue.location}
-                </Typography>
-                <Typography>{event?.venue.name}</Typography>
-                Venu map
-              </Box>
-            </Paper>
-            <Box p={4} mb={3}>
-              <Paper square variant="outlined">
-                <Map lat={event.venue.latitude} lon={event.venue.longitude} />
-              </Paper>
+          <Paper square variant="outlined">
+            <Box m={3}>
+              Venu information
+              <Typography>
+                Date :{" "}
+                <Moment calendar={calendarStrings}>{event.datetime}</Moment>
+              </Typography>
+              <Typography>
+                Time: <Moment format="HH:mm">{event.datetime}</Moment>
+              </Typography>
             </Box>
-          </>
-        )
+          </Paper>
+
+          <Paper square variant="outlined">
+            <Box m={3}>special offers</Box>
+          </Paper>
+          <Paper square variant="outlined">
+            <Box m={3}>
+              <Typography>{event?.venue.country}</Typography>
+              <Typography>
+                {event?.venue.city}, {event?.venue.location}
+              </Typography>
+              <Typography>{event?.venue.name}</Typography>
+              Venu map
+            </Box>
+          </Paper>
+          <Box p={4} mb={3}>
+            <Paper square variant="outlined">
+              <Map lat={event.venue.latitude} lon={event.venue.longitude} />
+            </Paper>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box p={4}>
+            <Typography>Event #{id} was not found</Typography>
+          </Box>
+        </>
       )}
     </>
   );

@@ -4,22 +4,27 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { useSelector, useDispatch } from "react-redux";
 
 import { capitalize } from "../../utils";
-import { selectEventsIds } from "../events/eventsSlice";
+import {
+  selectEventsIds,
+  selectEvents,
+  fetchEvents,
+} from "../events/eventsSlice";
 import EventsList from "../events/EventsList";
-import { fetchArtist, artistSelector } from "../artist/artistSlice";
 import { useParams } from "react-router-dom";
 import { url } from "../../utils";
 
 export default function Artist() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
-
-  const { artist, status, error } = useSelector(artistSelector);
+  const { artist, status } = useSelector(selectEvents);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
+  const capitalizedQueryParam = capitalize(query.artist);
   const imgRef = useRef();
 
   const dispatch = useDispatch();
+
+  const error = !artist || status === "failed";
 
   useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {
@@ -28,13 +33,12 @@ export default function Artist() {
   }, []);
 
   useEffect(() => {
-    const artistPath = query ? url(query.artist) : "";
     const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
     if (
       query.artist &&
-      query.artist?.toLowerCase() !== artist.name?.toLowerCase()
+      query.artist?.toLowerCase() !== artist?.name?.toLowerCase()
     ) {
-      dispatch(fetchArtist({ artistPath, eventsPath }));
+      dispatch(fetchEvents(eventsPath));
     }
   }, [query, dispatch, artist.name]);
 
@@ -45,9 +49,18 @@ export default function Artist() {
   return (
     <>
       {status === "loading" ? (
-        <CircularProgress />
+        <Box display="flex" justifyContent="center" alignItems="center" m={4}>
+          <CircularProgress />
+        </Box>
       ) : error ? (
-        <Box m={3}>Error: Failed to load</Box>
+        <Box m={3}>
+          <Typography component="div">
+            <p>
+              Could not find <b>{capitalizedQueryParam}</b>.
+            </p>
+            <p>Maybe we do not have this data, or wrong spelling.</p>
+          </Typography>
+        </Box>
       ) : (
         artist &&
         Object.keys(artist).length !== 0 &&
@@ -81,20 +94,24 @@ export default function Artist() {
                 />
               </Grid>
             </Grid>
-            <Grid item xs sm={6}>
-              {orderedEventsIds.length > 0 ? (
+            {orderedEventsIds.length > 0 ? (
+              <Grid item xs sm={6}>
                 <EventsList
                   eventsIds={orderedEventsIds}
                   artistName={artist.name}
                 />
-              ) : (
+              </Grid>
+            ) : (
+              <Grid item>
                 <Box m={3}>
+                  <Typography>Did not find {capitalizedQueryParam},</Typography>
+
                   <Typography>
-                    Did not find any events for {capitalizedArtistName}
+                    or any events for {capitalizedQueryParam}
                   </Typography>
                 </Box>
-              )}
-            </Grid>
+              </Grid>
+            )}
           </Grid>
         )
       )}

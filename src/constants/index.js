@@ -13,6 +13,7 @@ export const FONT_SIZE_15 = "4.625rem"; // 74px
 
 //
 export const DRAWER_WIDTH = 375;
+export const TOTAL_EVENTS_PER_PAGE = 10;
 
 // ASSETS PATHS
 //======================================

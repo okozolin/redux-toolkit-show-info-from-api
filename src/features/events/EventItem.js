@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Typography, Box, Grid, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { selectEventById } from "./eventsSlice";
@@ -7,25 +7,30 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   button: {
+    marginRight: 24,
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
 }));
 
-export default function EventItem({ eventId }) {
+const EventItem = memo(({ eventId }) => {
   const classes = useStyles();
-  // console.count("EventItem");
   const event = useSelector((state) => selectEventById(state, eventId));
   const { offers } = event;
+
   return (
     <>
-      <Grid container>
+      <Grid container wrap="nowrap">
         <Grid item xs={2}>
-          <Box display="flex" flexDirection="column" textAlign="center">
+          <Box
+            display="flex"
+            color={"#33a8ac"}
+            flexDirection="column"
+            textAlign="center"
+          >
             <Box
               fontSize={12}
-              color={"#33a8ac"}
               style={{
                 textTransform: "uppercase",
                 fontWeight: "500",
@@ -34,10 +39,10 @@ export default function EventItem({ eventId }) {
             >
               <Moment format="MMM">{event.datetime}</Moment>
             </Box>
-            <Box fontSize={26} color={"#33a8ac"} style={{ lineHeight: "29px" }}>
+            <Box fontSize={26} style={{ lineHeight: "29px" }}>
               <Moment format="D">{event.datetime}</Moment>
             </Box>
-            <Box fontSize={12} color={"#33a8ac"} style={{ lineHeight: "12px" }}>
+            <Box fontSize={12} style={{ lineHeight: "12px" }}>
               <Moment format="YYYY">{event.datetime}</Moment>
             </Box>
           </Box>
@@ -50,7 +55,7 @@ export default function EventItem({ eventId }) {
           </Box>
         </Grid>
         {offers.length > 0 && (
-          <Grid item xs={2} classes={{ item: classes.button }}>
+          <Grid item xs classes={{ item: classes.button }}>
             <Button variant="outlined" color="primary">
               {offers[0].type}
             </Button>
@@ -59,4 +64,6 @@ export default function EventItem({ eventId }) {
       </Grid>
     </>
   );
-}
+});
+
+export default EventItem;

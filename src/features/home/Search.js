@@ -1,22 +1,33 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, IconButton } from "@material-ui/core";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import CloseIcon from "@material-ui/icons/Close";
-import { ClearContext } from "../../app/context";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  searchUpdated,
+  searchCleared,
+  searchSelector,
+} from "../home/searchSlice";
 
 export default function Search() {
-  // const [value, setValue] = useState("");
-  const { value, setValue } = useContext(ClearContext);
-
+  const { value: searchValue } = useSelector(searchSelector);
+  const [value, setValue] = useState(searchValue);
+  const dispatch = useDispatch();
   let history = useHistory();
+
+  useEffect(() => {
+    setValue(searchValue);
+  }, [searchValue]);
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
+      dispatch(searchUpdated(value));
       history.push(`/${value}`);
     } else if (e.type === "click") {
+      dispatch(searchUpdated(value));
       history.push(`/${value}`);
     }
   };
@@ -27,6 +38,7 @@ export default function Search() {
 
   const handleClear = () => {
     setValue("");
+    dispatch(searchCleared());
   };
 
   return (

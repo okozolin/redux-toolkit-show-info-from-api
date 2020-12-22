@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Box, Paper, Typography } from "@material-ui/core";
 import Search from "./Search";
 import Navbar from "../../app/Navbar";
 import Header from "../../components/Header";
 import FaceIcon from "@material-ui/icons/Face";
 import { makeStyles } from "@material-ui/core/styles";
-import { ClearContext } from "../../app/context";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -90,56 +89,50 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  const [value, setValue] = useState("");
 
-  console.count("Home");
   return (
     <>
-      <ClearContext.Provider value={{ value, setValue }}>
-        <Paper square elevation={1}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Header />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              container
-              alignItems="center"
-              justify="space-between"
-              style={{ padding: "0 20px", marginBottom: "20px" }}
-            >
-              <Grid item xs md={4}>
-                <div className={classes.fireworks}>
-                  <span
-                    style={{ display: "inline-block", fontStyle: "normal" }}
-                  >
-                    <Box
-                      alignItems="center"
-                      display="flex"
-                      order={{ md: 1, lg: 1 }}
-                      color="#ce285d"
-                    >
-                      <FaceIcon fontSize="large" />
-                      <Typography>oritkozolin</Typography>
-                    </Box>
-                  </span>
-                </div>
-              </Grid>
-              <Box clone order={{ md: 2, lg: 3 }}>
-                <Grid item xs={6} md>
-                  <Navbar />
-                </Grid>
-              </Box>
-              <Box clone order={{ md: 3, lg: 2 }}>
-                <Grid item xs={12} lg={4} classes={{ item: classes.search }}>
-                  <Search />
-                </Grid>
-              </Box>
-            </Grid>
+      <Paper square elevation={1}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Header />
           </Grid>
-        </Paper>
-      </ClearContext.Provider>
+          <Grid
+            item
+            xs={12}
+            container
+            alignItems="center"
+            justify="space-between"
+            style={{ padding: "0 20px", marginBottom: "20px" }}
+          >
+            <Grid item xs md={4}>
+              <div className={classes.fireworks}>
+                <span style={{ display: "inline-block", fontStyle: "normal" }}>
+                  <Box
+                    alignItems="center"
+                    display="flex"
+                    order={{ md: 1, lg: 1 }}
+                    color="#ce285d"
+                  >
+                    <FaceIcon fontSize="large" />
+                    <Typography>oritkozolin</Typography>
+                  </Box>
+                </span>
+              </div>
+            </Grid>
+            <Box clone order={{ md: 2, lg: 3 }}>
+              <Grid item xs={6} md>
+                <Navbar />
+              </Grid>
+            </Box>
+            <Box clone order={{ md: 3, lg: 2 }}>
+              <Grid item xs={12} lg={4} classes={{ item: classes.search }}>
+                <Search />
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   );
 }
