@@ -24,7 +24,10 @@ export default function Artist() {
 
   const dispatch = useDispatch();
 
-  const error = !artist || status === "failed";
+  const error =
+    (Array.isArray(artist) && artist.length === 0) ||
+    (Object.keys(artist).length === 0 && artist.constructor === Object) ||
+    status === "failed";
 
   useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {

@@ -21,6 +21,7 @@ import { selectTotalFavorites } from "../features/favorites/favoritesSlice";
 import { DRAWER_WIDTH } from "../constants";
 import { DrawerContext } from "./context";
 import { searchCleared } from "../features/home/searchSlice";
+import { initEvents } from "../features/events/eventsSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,6 +103,7 @@ const Navbar = () => {
 
   const handleClick = () => {
     dispatch(searchCleared());
+    dispatch(initEvents());
   };
 
   return (
