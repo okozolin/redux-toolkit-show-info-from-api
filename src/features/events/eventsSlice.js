@@ -27,14 +27,18 @@ const initialState = eventsAdapter.getInitialState({
 const eventsSlice = createSlice({
   name: "events",
   initialState,
-  reducers: {},
+  reducers: {
+    initEvents(state, action) {
+      eventsAdapter.setAll(state, []);
+    },
+  },
   extraReducers: {
     [fetchEvents.pending]: (state, action) => {
       state.status = "loading";
     },
     [fetchEvents.fulfilled]: (state, { payload }) => {
       state.status = "succeeded";
-      state.artist = payload[0].artist;
+      state.artist = payload[0]?.artist || [];
       eventsAdapter.setAll(state, payload);
     },
     [fetchEvents.rejected]: (state, action) => {
@@ -50,5 +54,6 @@ export const {
   selectIds: selectEventsIds,
 } = eventsAdapter.getSelectors((state) => state.events);
 
+export const { initEvents } = eventsSlice.actions;
 export const selectEvents = (state) => state.events;
 export default eventsSlice.reducer;

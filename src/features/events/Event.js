@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Event() {
+  window.scroll(0, 0);
   const classes = useStyles();
   const { state } = useLocation();
   const { from } = state || { from: "home" };
