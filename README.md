@@ -1,5 +1,7 @@
 # Small web app to display Artists/Bands info & events”
 
+🎸[Try the app](https://redux-toolkit-search-from-api.herokuapp.com) ⭐️
+
 ![Home page preview](b-search-field.gif)
 
 ## Requirenments
