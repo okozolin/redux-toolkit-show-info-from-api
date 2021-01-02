@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import EventItem from "./EventItem";
 import { NavLink } from "react-router-dom";
-import { TOTAL_EVENTS_PER_PAGE } from "../../constants";
+import { TOTAL_EVENTS_PER_PAGE } from "../../config";
 
 export default function EventsList({ eventsIds, artistName }) {
   const [partialEventsIds, setPartialEventsIds] = useState([]);
