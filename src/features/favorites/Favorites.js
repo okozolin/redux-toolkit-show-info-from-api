@@ -14,6 +14,8 @@ import {
   updateFavorites,
   selectAllFavorites,
 } from "./favoritesSlice";
+import { searchUpdated } from "../home/searchSlice";
+
 import { NavLink } from "react-router-dom";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -52,6 +54,10 @@ const Favorites = memo(() => {
     favorites = JSON.parse(localStorageFavorites);
     dispatch(updateFavorites(favorites));
   }
+  const handleClickEvent = (artistName) => (e) => {
+    setOpen(false);
+    dispatch(searchUpdated(artistName));
+  };
 
   return (
     <Box>
@@ -60,7 +66,7 @@ const Favorites = memo(() => {
           {favorites.map((event, i) => (
             <Card square key={i} classes={{ root: classes.card }}>
               <CardActionArea
-                onClick={() => setOpen(false)}
+                onClick={handleClickEvent(event.lineup[0])}
                 classes={{ root: classes.actionAria }}
                 component={NavLink}
                 to={{
