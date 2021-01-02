@@ -10,6 +10,7 @@ import {
   searchCleared,
   searchSelector,
 } from "../home/searchSlice";
+import { initEvents } from "../events/eventsSlice";
 
 export default function Search() {
   const { value: searchValue } = useSelector(searchSelector);
@@ -22,11 +23,8 @@ export default function Search() {
   }, [searchValue]);
 
   const handleSearch = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      dispatch(searchUpdated(value));
-      history.push(`/${value}`);
-    } else if (e.type === "click") {
+    if (e.key === "Enter" || e.type === "click") {
+      dispatch(initEvents());
       dispatch(searchUpdated(value));
       history.push(`/${value}`);
     }

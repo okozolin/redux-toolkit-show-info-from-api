@@ -12,6 +12,7 @@ import {
 import EventsList from "../events/EventsList";
 import { useParams } from "react-router-dom";
 import { url } from "../../utils";
+import { searchUpdated } from "../home/searchSlice";
 
 export default function Artist() {
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -37,6 +38,7 @@ export default function Artist() {
 
   useEffect(() => {
     const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
+    dispatch(searchUpdated(query.artist));
     if (
       query.artist &&
       query.artist?.toLowerCase() !== artist?.name?.toLowerCase()

@@ -30,6 +30,7 @@ const eventsSlice = createSlice({
   reducers: {
     initEvents(state, action) {
       eventsAdapter.setAll(state, []);
+      state.artist = {};
     },
   },
   extraReducers: {
