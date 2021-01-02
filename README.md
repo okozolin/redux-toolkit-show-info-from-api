@@ -2,7 +2,7 @@
 
 🎸[Try the app](https://redux-toolkit-search-from-api.herokuapp.com) ⭐️
 
-![Home page preview](b-search-field.gif)
+![Home page preview](./images/b-search-field.gif)
 
 ## Requirenments
 
@@ -41,11 +41,11 @@
 
 #### Home page
 
-![Home page preview](home-page.jpg)
+![Home page preview](./images/home-page.jpg)
 
 #### Events page
 
-![Home page preview](events-page.jpg)
+![Home page preview](./images/events-page.jpg)
 
 ## Implementation highlights
 
@@ -59,7 +59,7 @@
   - Example: I used react-router-dom 'Navlink' componet as replacing component property with 'Button' , 'ListItem', 'CardActionArea'
 - Application flow is controled by URL. Meaning, you can fetch info by simply typing the correct url. e.g. "localhost:3000/beyonce"
 
-- ![Home page preview](b-search-url.gif)
+- ![Home page preview](./images/b-search-url.gif)
 
 - Performance:
   - Built in selector function memoization with 'createEntityAdapter'
@@ -73,7 +73,7 @@
 - Search field size and position adjust to the change of screen size
 - Artist image size changes (smaller) in mobile
 - 'Ticket' button is not displayed in mobile
-- ![Home page preview](b-responsive.gif)
+- ![Home page preview](./images/b-responsive.gif)
 
 ### 3. UI/UX
 
@@ -83,14 +83,14 @@
 - Go to event page from favorites list
 - Gradient color buttons style change on hover
 - Display an animated placeholder of artist image before it gets loaded
-- ![Home page preview](b-favorites.gif)
+- ![Home page preview](./images/b-favorites.gif)
 
 ### 4. Animations
 
 - Hover my name...🤩
 - Beating heart as favorite, in event page
 - Display an animated placeholder of artist image before it gets loaded
-- ![Home page preview](b-animation.gif)
+- ![Home page preview](./images/b-animation.gif)
    <hr>
    <br>
 

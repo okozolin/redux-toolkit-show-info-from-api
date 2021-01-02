@@ -61,7 +61,7 @@ export default function EventsList({ eventsIds, artistName }) {
             >
               {isLoading
                 ? "loading more..."
-                : `Show More : ${startIndex + TOTAL_EVENTS_PER_PAGE} - ${
+                : `Show More : ${startIndex + 1 + TOTAL_EVENTS_PER_PAGE} - ${
                     eventsIds.length
                   }`}
             </Button>
