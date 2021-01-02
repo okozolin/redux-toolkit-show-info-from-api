@@ -41,7 +41,7 @@ export default function EventsList({ eventsIds, artistName }) {
                 component={NavLink}
                 to={{
                   pathname: `${artistName}/events/${eventId}`,
-                  state: { from: "eventsList" },
+                  state: { from: "eventList" },
                 }}
               >
                 <ListItemText>

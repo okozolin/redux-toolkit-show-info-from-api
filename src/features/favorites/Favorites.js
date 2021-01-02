@@ -23,6 +23,7 @@ import { Moment, calendarStrings } from "../../utils";
 import { useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { DrawerContext } from "../../app/context";
+import { getFavorites } from "./favoritesService";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -47,13 +48,12 @@ const Favorites = memo(() => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
   let favorites = useSelector(selectAllFavorites);
-
-  const localStorageFavorites = localStorage.getItem("favorites");
+  const localStorageFavorites = getFavorites();
 
   if (favorites.length === 0 && localStorageFavorites) {
-    favorites = JSON.parse(localStorageFavorites);
-    dispatch(updateFavorites(favorites));
+    dispatch(updateFavorites(localStorageFavorites));
   }
+
   const handleClickEvent = (artistName) => (e) => {
     setOpen(false);
     dispatch(searchUpdated(artistName));

@@ -63,7 +63,7 @@ export default function Event() {
     const eventsPath = artistParam
       ? url(`${artistParam}/events`) + "&date=all"
       : "";
-    if (from !== "eventsList") {
+    if (from !== "eventList") {
       dispatch(fetchEvents(eventsPath));
     }
   }, [artistParam, from, dispatch]);

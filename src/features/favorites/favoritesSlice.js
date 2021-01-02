@@ -1,4 +1,5 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { setFavorites } from "./favoritesService";
 
 const favoritesAdapter = createEntityAdapter({
   sortComparer: (a, b) => {
@@ -14,11 +15,11 @@ const favoritesSlice = createSlice({
   reducers: {
     addToFavorites(state, action) {
       favoritesAdapter.addOne(state, action.payload);
-      localStorage.setItem("favorites", JSON.stringify(state.entities));
+      setFavorites(state.entities);
     },
     removeFromFavorites(state, action) {
       favoritesAdapter.removeOne(state, action.payload);
-      localStorage.setItem("favorites", JSON.stringify(state.entities));
+      setFavorites(state.entities);
     },
     updateFavorites: favoritesAdapter.upsertMany,
   },
@@ -33,7 +34,6 @@ export const {
 export const {
   selectAll: selectAllFavorites,
   selectById: selectFavoriteById,
-  selectIds: selectFavoritesIds,
   selectTotal: selectTotalFavorites,
 } = favoritesAdapter.getSelectors((state) => state.favorites);
 

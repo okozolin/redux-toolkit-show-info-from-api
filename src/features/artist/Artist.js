@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import ArtistPicture from "./ArtistPicture";
-import EventsList from "../events/EventsList";
+import EventList from "../events/EventList";
 import { capitalize } from "../../utils";
 import {
   selectEventsIds,
@@ -83,7 +83,7 @@ export default function Artist() {
             </Grid>
             {orderedEventsIds.length > 0 ? (
               <Grid item xs sm={6}>
-                <EventsList
+                <EventList
                   eventsIds={orderedEventsIds}
                   artistName={artist.name}
                 />
