@@ -19,7 +19,6 @@ import { NavLink } from "react-router-dom";
 import Favorites from "../features/favorites/Favorites";
 import { selectTotalFavorites } from "../features/favorites/favoritesSlice";
 import { DRAWER_WIDTH } from "../config";
-import { DrawerContext } from "./context";
 import { searchCleared } from "../features/home/searchSlice";
 import { initEvents } from "../features/events/eventsSlice";
 
@@ -175,9 +174,7 @@ const Navbar = () => {
           Favorite events
         </Box>
         <Divider />
-        <DrawerContext.Provider value={{ open, setOpen }}>
-          <Favorites />
-        </DrawerContext.Provider>
+        <Favorites setOpen={setOpen} />
       </Drawer>
     </>
   );

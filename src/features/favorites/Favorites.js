@@ -1,4 +1,4 @@
-import React, { useContext, memo } from "react";
+import React, { memo } from "react";
 import {
   Typography,
   Box,
@@ -22,7 +22,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Moment, calendarStrings } from "../../utils";
 import { useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { DrawerContext } from "../../app/context";
 import { getFavorites } from "./favoritesService";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,9 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorites = memo(() => {
+const Favorites = memo(({ setOpen }) => {
   const classes = useStyles();
-  const { open, setOpen } = useContext(DrawerContext);
 
   const dispatch = useDispatch();
   const match = useRouteMatch();
