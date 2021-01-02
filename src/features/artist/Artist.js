@@ -1,27 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography, Box, CircularProgress } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+import ArtistPicture from "./ArtistPicture";
+import EventsList from "../events/EventsList";
 import { capitalize } from "../../utils";
 import {
   selectEventsIds,
   selectEvents,
   fetchEvents,
 } from "../events/eventsSlice";
-import EventsList from "../events/EventsList";
-import { useParams } from "react-router-dom";
 import { url } from "../../utils";
 import { searchUpdated } from "../home/searchSlice";
 
 export default function Artist() {
-  const [imgLoaded, setImgLoaded] = useState(false);
   const query = useParams();
   const { artist, status } = useSelector(selectEvents);
   const orderedEventsIds = useSelector(selectEventsIds);
   const capitalizedArtistName = capitalize(artist.name);
   const capitalizedQueryParam = capitalize(query.artist);
-  const imgRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -29,12 +27,6 @@ export default function Artist() {
     (Array.isArray(artist) && artist.length === 0) ||
     (Object.keys(artist).length === 0 && artist.constructor === Object) ||
     status === "failed";
-
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete) {
-      setImgLoaded(true);
-    }
-  }, []);
 
   useEffect(() => {
     const eventsPath = query ? url(`${query.artist}/events`) + "&date=all" : "";
@@ -86,17 +78,7 @@ export default function Artist() {
               </Grid>
 
               <Grid item>
-                {imgLoaded ? null : (
-                  <Skeleton variant="rect" width={200} height={200} />
-                )}
-                <Box
-                  style={imgLoaded ? {} : { display: "none" }}
-                  component="img"
-                  ref={imgRef}
-                  src={artist.image_url}
-                  width={{ xs: "200px", sm: "320px" }}
-                  onLoad={() => setImgLoaded(true)}
-                />
+                <ArtistPicture imageUrl={artist.image_url} />
               </Grid>
             </Grid>
             {orderedEventsIds.length > 0 ? (
